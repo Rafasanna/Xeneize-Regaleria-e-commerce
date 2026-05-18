@@ -12,9 +12,9 @@ export function Offers() {
   const offers = products.filter((product) => product.oldPrice);
   return (
     <section className="container-page py-10">
-      <div className="mb-8 rounded-lg bg-ink p-8 text-white">
-        <p className="text-sm font-semibold uppercase tracking-wide text-blush-300">Ofertas</p>
-        <h1 className="mt-2 text-4xl font-semibold tracking-normal">Promos destacadas</h1>
+      <div className="mb-8 rounded-lg bg-ink p-8 text-white shadow-editorial">
+        <p className="inline-flex rounded-full bg-blush-200 px-3 py-1.5 text-xs font-black uppercase tracking-wide text-ink">Ofertas</p>
+        <h1 className="mt-5 text-4xl font-black tracking-tight">Promos destacadas</h1>
         <p className="mt-3 max-w-2xl text-white/75">Productos seleccionados con descuentos para resolver regalos, utiles y accesorios.</p>
       </div>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

@@ -12,7 +12,7 @@ import { Account } from "./pages/Account";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-blush-50">
+    <div className="min-h-screen bg-cream">
       <Header />
       <main>
         <Routes>

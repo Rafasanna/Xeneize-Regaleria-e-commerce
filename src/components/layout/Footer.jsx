@@ -11,14 +11,14 @@ export function Footer() {
         <div className="space-y-4">
           <Logo />
           <p className="max-w-sm text-sm leading-6 text-white/68">
-            Regaleria, libreria, bazar, accesorios y tecnologia con una estetica limpia, calida y lista para regalar.
+            Regaleria, libreria, bazar, moda y tecnologia con una experiencia de compra clara, actual y lista para regalar.
           </p>
           <p className="text-sm font-semibold">Supremos Entrerriano 572, Santa Elena, Entre Rios</p>
           <div className="flex gap-2">
-            <a href="https://www.instagram.com/" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20" aria-label="Instagram">
+            <a href="https://www.instagram.com/" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-nude" aria-label="Instagram">
               <Camera className="h-5 w-5" />
             </a>
-            <a href={buildWhatsAppUrl("Hola, quiero consultar por Xeneize Regaleria")} className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20" aria-label="WhatsApp">
+            <a href={buildWhatsAppUrl("Hola, quiero consultar por Xeneize Regaleria")} className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-nude" aria-label="WhatsApp">
               <MessageCircle className="h-5 w-5" />
             </a>
           </div>
@@ -26,7 +26,7 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">Categorias</h3>
           <div className="mt-4 grid gap-2 text-sm text-white/62">
-            {categories.slice(1).map((category) => <Link key={category.name} to={category.path} className="hover:text-blush-300">{category.name}</Link>)}
+            {categories.slice(1).map((category) => <Link key={category.name} to={category.path} className="hover:text-nude">{category.name}</Link>)}
           </div>
         </div>
         <div>
@@ -41,10 +41,10 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">Atencion</h3>
           <div className="mt-4 grid gap-2 text-sm text-white/62">
-            <Link to="/login" className="hover:text-blush-300">Mi cuenta</Link>
-            <Link to="/favoritos" className="hover:text-blush-300">Favoritos</Link>
-            <Link to="/carrito" className="hover:text-blush-300">Carrito</Link>
-            <a href={buildWhatsAppUrl("Hola, necesito ayuda con una compra")} className="hover:text-blush-300">WhatsApp</a>
+            <Link to="/login" className="hover:text-nude">Mi cuenta</Link>
+            <Link to="/favoritos" className="hover:text-nude">Favoritos</Link>
+            <Link to="/carrito" className="hover:text-nude">Carrito</Link>
+            <a href={buildWhatsAppUrl("Hola, necesito ayuda con una compra")} className="hover:text-nude">WhatsApp</a>
           </div>
         </div>
       </div>

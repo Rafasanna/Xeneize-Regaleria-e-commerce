@@ -18,9 +18,9 @@ export function ProductCard({ product, onToast }) {
   return (
     <motion.article
       whileHover={{ y: -4 }}
-      className="group overflow-hidden rounded-lg bg-porcelain shadow-sm ring-1 ring-black/5 transition hover:shadow-soft"
+      className="group overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-black/10 transition hover:shadow-soft"
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-cream">
+      <div className="relative aspect-[4/5] overflow-hidden bg-steel">
         <img
           src={product.image}
           alt={product.name}
@@ -28,13 +28,13 @@ export function ProductCard({ product, onToast }) {
           loading="lazy"
         />
         {product.badge ? (
-          <span className="absolute left-3 top-3 rounded-full bg-ink px-3 py-1 text-xs font-semibold text-white">
+          <span className={`absolute left-3 top-3 rounded-full px-3 py-1.5 text-xs font-black tracking-wide ${product.oldPrice ? "bg-blush-200 text-ink" : "bg-ink text-white"}`}>
             {product.badge}
           </span>
         ) : null}
         <button
           onClick={() => toggleFavorite(product)}
-          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-ink shadow-sm transition hover:bg-cream"
+          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white/95 text-ink shadow-sm ring-1 ring-black/10 transition hover:bg-steel hover:text-nude"
           aria-label="Guardar favorito"
         >
           <Heart className={isFavorite ? "h-5 w-5 fill-nude text-nude" : "h-5 w-5"} />
@@ -42,21 +42,21 @@ export function ProductCard({ product, onToast }) {
       </div>
       <div className="space-y-3 p-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-warm">{product.category}</p>
-          <Link to={`/producto/${product.id}`} className="mt-1 block min-h-12 font-serif text-xl font-semibold leading-snug hover:text-nude">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-nude">{product.category}</p>
+          <Link to={`/producto/${product.id}`} className="mt-1 block min-h-12 text-lg font-black leading-snug tracking-tight hover:text-nude">
             {product.name}
           </Link>
         </div>
         <div className="flex items-end gap-2">
-          <span className="text-lg font-bold text-ink">{formatPrice(product.price)}</span>
+          <span className="text-xl font-black text-ink">{formatPrice(product.price)}</span>
           {product.oldPrice ? <span className="pb-0.5 text-sm text-zinc-400 line-through">{formatPrice(product.oldPrice)}</span> : null}
         </div>
         <div className="grid grid-cols-[1fr_auto] gap-2">
-          <Button onClick={handleCart} className="px-3">
+          <Button onClick={handleCart} className="px-3 font-black">
             <ShoppingBag className="h-4 w-4" />
             Agregar
           </Button>
-          <Link to={`/producto/${product.id}`} className="inline-flex min-h-11 items-center justify-center rounded-full bg-cream px-4 text-sm font-semibold text-ink transition hover:bg-blush-100">
+          <Link to={`/producto/${product.id}`} className="inline-flex min-h-11 items-center justify-center rounded-full bg-steel px-4 text-sm font-black text-ink transition hover:bg-blush-200">
             Ver
           </Link>
         </div>
