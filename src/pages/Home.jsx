@@ -30,7 +30,7 @@ const categoryItems = [
   { title: "Regalos personalizados", to: "/productos?q=personalizado", icon: Sparkles, tone: "bg-blush-100 text-coral" },
   { title: "Tazas", to: "/productos?q=taza", icon: Coffee, tone: "bg-gold text-ink" },
   { title: "Boxes de regalo", to: "/productos?q=box", icon: Package, tone: "bg-blush-200 text-ink" },
-  { title: "Papeleria", to: "/productos?categoria=Libreria", icon: BookOpen, tone: "bg-steel text-coral" },
+  { title: "Papeleria", to: "/productos?categoria=Librer%C3%ADa", icon: BookOpen, tone: "bg-steel text-coral" },
   { title: "Deco", to: "/productos?categoria=Bazar%20y%20hogar&subcategoria=Deco", icon: HomeIcon, tone: "bg-blush-100 text-ink" },
   { title: "Accesorios", to: "/productos?q=accesorios", icon: Gem, tone: "bg-blush-200 text-ink" },
   { title: "Cumpleanos", to: "/productos?q=cumpleanos", icon: Cake, tone: "bg-steel text-ink" },
@@ -52,7 +52,7 @@ const collectionItems = [
   { title: "Amor y amistad", text: "Regalos para fechas especiales.", icon: HeartHandshake, to: "/productos?q=amor" },
   { title: "Regalos empresariales", text: "Opciones para equipos y clientes.", icon: BriefcaseBusiness, to: "/productos?q=regalos" },
   { title: "Deco", text: "Objetos lindos para el hogar.", icon: HomeIcon, to: "/productos?categoria=Bazar%20y%20hogar&subcategoria=Deco" },
-  { title: "Papeleria creativa", text: "Agendas, cuadernos y organizacion.", icon: Palette, to: "/productos?categoria=Libreria" }
+  { title: "Papeleria creativa", text: "Agendas, cuadernos y organizacion.", icon: Palette, to: "/productos?categoria=Librer%C3%ADa" }
 ];
 
 export function Home() {
@@ -88,7 +88,7 @@ export function Home() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 lg:justify-end">
-                <Link to="/productos" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-coral px-6 py-3 text-sm font-black text-white shadow-[0_14px_30px_rgba(223,23,111,0.24)] transition hover:-translate-y-0.5 hover:bg-sage">
+                <Link to="/productos" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-coral px-6 py-3 text-sm font-black text-white shadow-[0_14px_30px_rgba(121,85,72,0.2)] transition hover:-translate-y-0.5 hover:bg-sage">
                   Ir a la tienda
                   <ShoppingBag className="h-4 w-4" />
                 </Link>
@@ -185,7 +185,7 @@ export function Home() {
                 Contanos que queres regalar y te ayudamos a armar una opcion personalizada.
               </p>
             </div>
-            <a href={buildWhatsAppUrl("Hola, busco un regalo especial y quiero armar una opcion personalizada")} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-black text-coral shadow-sm transition hover:-translate-y-0.5 hover:bg-blush-100">
+            <a href={buildWhatsAppUrl("Hola, busco un regalo especial y quiero armar una opcion personalizada")} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-black text-white shadow-[0_12px_26px_rgba(37,211,102,0.24)] transition hover:-translate-y-0.5 hover:bg-[#1ebe5d]">
               Consultar por WhatsApp
               <MessageCircle className="h-4 w-4" />
             </a>

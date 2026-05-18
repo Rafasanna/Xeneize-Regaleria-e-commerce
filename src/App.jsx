@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { Footer } from "./components/layout/Footer";
 import { Header } from "./components/layout/Header";
+import { ScrollToTop } from "./components/layout/ScrollToTop";
 import { Cart } from "./pages/Cart";
+import { Checkout } from "./pages/Checkout";
 import { Favorites } from "./pages/Favorites";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
@@ -12,7 +14,8 @@ import { Account } from "./pages/Account";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-white">
+      <ScrollToTop />
       <Header />
       <main>
         <Routes>
@@ -22,6 +25,7 @@ export default function App() {
           <Route path="/ofertas" element={<Offers />} />
           <Route path="/favoritos" element={<Favorites />} />
           <Route path="/carrito" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mi-cuenta" element={<Account />} />
           <Route path="/producto/:id" element={<ProductDetail />} />

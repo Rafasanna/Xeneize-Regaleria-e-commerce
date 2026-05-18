@@ -7,10 +7,18 @@ import { Button } from "./Button";
 
 export function ProductCard({ product, onToast }) {
   const addToCart = useShopStore((state) => state.addToCart);
+  const cartQuantity = useShopStore((state) => state.cart.find((item) => item.id === product.id)?.quantity ?? 0);
   const toggleFavorite = useShopStore((state) => state.toggleFavorite);
   const isFavorite = useShopStore((state) => state.isFavorite(product.id));
+  const stockLeft = Math.max(0, Number(product.stock ?? 0) - cartQuantity);
+  const isOutOfStock = Number(product.stock ?? 0) <= 0;
+  const isMaxReached = !isOutOfStock && stockLeft <= 0;
 
   const handleCart = () => {
+    if (isOutOfStock || isMaxReached) {
+      onToast?.(isOutOfStock ? "Producto sin stock" : "Ya agregaste todo el stock disponible");
+      return;
+    }
     addToCart(product);
     onToast?.(`${product.name} agregado al carrito`);
   };
@@ -27,7 +35,11 @@ export function ProductCard({ product, onToast }) {
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           loading="lazy"
         />
-        {product.badge ? (
+        {isOutOfStock ? (
+          <span className="absolute left-3 top-3 rounded-full bg-ink px-3 py-1.5 text-xs font-black tracking-wide text-white">
+            Sin stock
+          </span>
+        ) : product.badge ? (
           <span className={`absolute left-3 top-3 rounded-full px-3 py-1.5 text-xs font-black tracking-wide ${product.oldPrice ? "bg-gold text-ink" : "bg-coral text-white"}`}>
             {product.badge}
           </span>
@@ -51,10 +63,11 @@ export function ProductCard({ product, onToast }) {
           <span className="text-xl font-black text-ink">{formatPrice(product.price)}</span>
           {product.oldPrice ? <span className="pb-0.5 text-sm text-warm/55 line-through">{formatPrice(product.oldPrice)}</span> : null}
         </div>
+        <p className="mt-2 text-xs font-bold text-warm">{isMaxReached ? "Stock máximo en carrito" : `${product.stock} disponibles`}</p>
         <div className="mt-auto grid grid-cols-[1fr_auto] gap-2 pt-4">
-          <Button onClick={handleCart} className="whitespace-nowrap px-3 font-black">
+          <Button onClick={handleCart} disabled={isOutOfStock || isMaxReached} className="whitespace-nowrap px-3 font-black">
             <ShoppingBag className="h-4 w-4" />
-            Agregar
+            {isMaxReached ? "Máximo" : "Agregar"}
           </Button>
           <Link to={`/producto/${product.id}`} className="inline-flex min-h-11 items-center justify-center rounded-full bg-steel px-4 text-sm font-black text-ink ring-1 ring-coral/10 transition hover:bg-blush-200 hover:text-coral">
             Ver

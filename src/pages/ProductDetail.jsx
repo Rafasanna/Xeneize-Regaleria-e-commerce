@@ -13,6 +13,7 @@ export function ProductDetail() {
   const product = products.find((item) => item.id === Number(id));
   const [toast, setToast] = useState("");
   const addToCart = useShopStore((state) => state.addToCart);
+  const cartQuantity = useShopStore((state) => product ? state.cart.find((item) => item.id === product.id)?.quantity ?? 0 : 0);
   const toggleFavorite = useShopStore((state) => state.toggleFavorite);
   const isFavorite = useShopStore((state) => product && state.isFavorite(product.id));
 
@@ -21,6 +22,8 @@ export function ProductDetail() {
   }
 
   const related = products.filter((item) => item.category === product.category && item.id !== product.id).slice(0, 4);
+  const stockLeft = Math.max(0, Number(product.stock ?? 0) - cartQuantity);
+  const isMaxReached = stockLeft <= 0;
   const showToast = (message) => {
     setToast(message);
     setTimeout(() => setToast(""), 2200);
@@ -41,18 +44,18 @@ export function ProductDetail() {
           </div>
           <p className="mt-5 max-w-xl leading-7 text-warm">{product.description}</p>
           <div className="mt-5 grid gap-2 rounded-lg bg-steel p-4 text-sm text-warm ring-1 ring-coral/10">
-            <span>Stock disponible: <strong>{product.stock} unidades</strong></span>
+            <span>Stock disponible: <strong>{stockLeft} de {product.stock} unidades</strong></span>
             <span>Entrega: retiro en local o envio a domicilio</span>
           </div>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Button onClick={() => { addToCart(product); showToast("Producto agregado al carrito"); }}>
-              <ShoppingBag className="h-4 w-4" /> Agregar al carrito
+            <Button disabled={isMaxReached} onClick={() => { addToCart(product); showToast(isMaxReached ? "Ya agregaste todo el stock disponible" : "Producto agregado al carrito"); }}>
+              <ShoppingBag className="h-4 w-4" /> {isMaxReached ? "Stock máximo en carrito" : "Agregar al carrito"}
             </Button>
             <Button variant="secondary" onClick={() => toggleFavorite(product)}>
               <Heart className={isFavorite ? "h-4 w-4 fill-coral text-coral" : "h-4 w-4"} /> Favorito
             </Button>
             <a href={buildWhatsAppUrl(`Hola, quiero consultar por ${product.name} de Xeneize Regaleria`)}>
-              <Button variant="blush" className="w-full"><MessageCircle className="h-4 w-4" /> WhatsApp</Button>
+              <Button className="w-full bg-[#25D366] text-white shadow-[0_12px_26px_rgba(37,211,102,0.24)] hover:bg-[#1ebe5d]"><MessageCircle className="h-4 w-4" /> WhatsApp</Button>
             </a>
           </div>
         </div>
