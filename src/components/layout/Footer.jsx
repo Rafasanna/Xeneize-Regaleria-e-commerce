@@ -1,54 +1,74 @@
-import { Camera, MessageCircle } from "lucide-react";
+import { Camera, Mail, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import { categories } from "../../data/categories";
 import { buildWhatsAppUrl } from "../../lib/utils";
 import { Logo } from "../ui/Logo";
+
+const brandLinks = [
+  { label: "Inicio", to: "/" },
+  { label: "Tienda", to: "/productos" },
+  { label: "Categorias", to: "/categorias" },
+  { label: "Ofertas", to: "/ofertas" }
+];
+
+const helpItems = ["Como comprar", "Medios de pago", "Envios", "Cambios y devoluciones"];
 
 export function Footer() {
   return (
     <footer className="mt-16 bg-ink text-white">
-      <div className="container-page grid gap-10 border-t border-white/10 py-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="container-page grid gap-10 border-t border-blush-200/10 py-12 md:grid-cols-[1.35fr_1fr_1fr_1fr]">
         <div className="space-y-4">
           <Logo />
           <p className="max-w-sm text-sm leading-6 text-white/68">
-            Regaleria, libreria, bazar, moda y tecnologia con una experiencia de compra clara, actual y lista para regalar.
+            Regaleria, papeleria, deco y detalles personalizados para resolver regalos con una experiencia simple y clara.
           </p>
-          <p className="text-sm font-semibold">Supremos Entrerriano 572, Santa Elena, Entre Rios</p>
+          <p className="text-sm font-semibold text-white/86">Supremos Entrerriano 572, Santa Elena, Entre Rios</p>
           <div className="flex gap-2">
-            <a href="https://www.instagram.com/" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-nude" aria-label="Instagram">
-              <Camera className="h-5 w-5" />
-            </a>
-            <a href={buildWhatsAppUrl("Hola, quiero consultar por Xeneize Regaleria")} className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-nude" aria-label="WhatsApp">
+            <a href={buildWhatsAppUrl("Hola, quiero consultar por Xeneize Regaleria")} className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-coral hover:text-white" aria-label="WhatsApp">
               <MessageCircle className="h-5 w-5" />
             </a>
+            <a href="https://www.instagram.com/" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-coral hover:text-white" aria-label="Instagram">
+              <Camera className="h-5 w-5" />
+            </a>
+            <a href="mailto:contacto@xeneizeregaleria.com" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-coral hover:text-white" aria-label="Email">
+              <Mail className="h-5 w-5" />
+            </a>
           </div>
         </div>
+
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">Categorias</h3>
+          <h3 className="text-sm font-black uppercase tracking-wide text-white/90">Xeneize Regaleria</h3>
           <div className="mt-4 grid gap-2 text-sm text-white/62">
-            {categories.slice(1).map((category) => <Link key={category.name} to={category.path} className="hover:text-nude">{category.name}</Link>)}
+            {brandLinks.map((item) => <Link key={item.label} to={item.to} className="hover:text-gold">{item.label}</Link>)}
+            <a href={buildWhatsAppUrl("Hola, quiero contactar a Xeneize Regaleria")} className="hover:text-gold">Contacto</a>
           </div>
         </div>
+
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">Compra</h3>
+          <h3 className="text-sm font-black uppercase tracking-wide text-white/90">Ayuda</h3>
           <div className="mt-4 grid gap-2 text-sm text-white/62">
-            <span>Medios de pago</span>
-            <span>Envios a todo el pais</span>
-            <span>Retiro en local</span>
-            <span>Compra protegida</span>
+            {helpItems.map((item) => <span key={item}>{item}</span>)}
           </div>
         </div>
+
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">Atencion</h3>
+          <h3 className="text-sm font-black uppercase tracking-wide text-white/90">Contacto</h3>
           <div className="mt-4 grid gap-2 text-sm text-white/62">
-            <Link to="/login" className="hover:text-nude">Mi cuenta</Link>
-            <Link to="/favoritos" className="hover:text-nude">Favoritos</Link>
-            <Link to="/carrito" className="hover:text-nude">Carrito</Link>
-            <a href={buildWhatsAppUrl("Hola, necesito ayuda con una compra")} className="hover:text-nude">WhatsApp</a>
+            <a href={buildWhatsAppUrl("Hola, necesito ayuda con una compra")} className="inline-flex items-center gap-2 hover:text-gold">
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
+            </a>
+            <a href="https://www.instagram.com/" className="inline-flex items-center gap-2 hover:text-gold">
+              <Camera className="h-4 w-4" />
+              Instagram
+            </a>
+            <a href="mailto:contacto@xeneizeregaleria.com" className="inline-flex items-center gap-2 hover:text-gold">
+              <Mail className="h-4 w-4" />
+              Email
+            </a>
           </div>
         </div>
       </div>
-      <div className="border-t border-white/10 py-5 text-center text-xs text-white/45">
+      <div className="border-t border-blush-200/10 py-5 text-center text-xs text-white/45">
         Xeneize Regaleria - Demo ecommerce
       </div>
     </footer>

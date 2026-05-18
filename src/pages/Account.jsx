@@ -18,32 +18,32 @@ export function Account() {
 
   return (
     <section className="container-page py-10">
-      <div className="mb-8 flex flex-col justify-between gap-4 rounded-lg bg-white p-6 shadow-sm ring-1 ring-black/10 sm:flex-row sm:items-center">
+      <div className="mb-8 flex flex-col justify-between gap-4 rounded-lg bg-white p-6 shadow-sm ring-1 ring-coral/10 sm:flex-row sm:items-center">
         <div className="flex items-center gap-4">
-          <span className="grid h-14 w-14 place-items-center rounded-full bg-steel text-nude"><User className="h-6 w-6" /></span>
+          <span className="grid h-14 w-14 place-items-center rounded-full bg-steel text-coral"><User className="h-6 w-6" /></span>
           <div>
             <h1 className="text-2xl font-black">{user.name}</h1>
-            <p className="text-sm text-zinc-600">{user.email}</p>
+            <p className="text-sm text-warm">{user.email}</p>
           </div>
         </div>
         <Button variant="secondary" onClick={logout}><LogOut className="h-4 w-4" /> Salir</Button>
       </div>
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-black/10">
-          <h2 className="flex items-center gap-2 text-lg font-black"><User className="h-5 w-5 text-nude" /> Datos</h2>
-          <div className="mt-4 space-y-2 text-sm text-zinc-600">
+        <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-coral/10">
+          <h2 className="flex items-center gap-2 text-lg font-black"><User className="h-5 w-5 text-coral" /> Datos</h2>
+          <div className="mt-4 space-y-2 text-sm text-warm">
             <p>Direccion demo: {user.address}</p>
             <p>Ciudad: Santa Elena, Entre Rios</p>
             <p>Preferencia: Retiro en local</p>
           </div>
         </div>
-        <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-black/10">
-          <h2 className="flex items-center gap-2 text-lg font-black"><Heart className="h-5 w-5 text-nude" /> Favoritos</h2>
+        <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-coral/10">
+          <h2 className="flex items-center gap-2 text-lg font-black"><Heart className="h-5 w-5 text-coral" /> Favoritos</h2>
           <p className="mt-4 text-3xl font-black">{favorites.length}</p>
-          <Link to="/favoritos" className="mt-4 inline-block text-sm font-black text-nude">Ver favoritos</Link>
+          <Link to="/favoritos" className="mt-4 inline-block text-sm font-black text-coral">Ver favoritos</Link>
         </div>
-        <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-black/10">
-          <h2 className="flex items-center gap-2 text-lg font-black"><Package className="h-5 w-5 text-nude" /> Pedidos demo</h2>
+        <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-coral/10">
+          <h2 className="flex items-center gap-2 text-lg font-black"><Package className="h-5 w-5 text-coral" /> Pedidos demo</h2>
           <div className="mt-4 space-y-3">
             {demoOrders.map((order) => (
               <div key={order.id} className="flex items-center justify-between rounded-md bg-steel p-3 text-sm">

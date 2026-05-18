@@ -1,9 +1,9 @@
 import { cn } from "../../lib/utils";
 
 const variants = {
-  primary: "bg-ink text-white shadow-[0_10px_24px_rgba(47,36,31,0.14)] hover:bg-sage",
-  secondary: "bg-porcelain text-ink ring-1 ring-black/10 hover:bg-steel",
-  blush: "bg-nude text-ink hover:bg-blush-200",
+  primary: "bg-coral text-white shadow-[0_12px_26px_rgba(223,23,111,0.24)] hover:bg-sage",
+  secondary: "bg-porcelain text-coral ring-1 ring-coral/25 hover:bg-blush-50 hover:ring-coral/40",
+  blush: "bg-blush-100 text-ink ring-1 ring-coral/15 hover:bg-blush-200",
   ghost: "bg-transparent text-ink hover:bg-steel"
 };
 

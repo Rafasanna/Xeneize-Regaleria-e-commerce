@@ -3,32 +3,37 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     ringColor: {
-      DEFAULT: "rgb(233 174 184 / 0.45)"
+      DEFAULT: "rgb(223 23 111 / 0.28)"
     },
     extend: {
       colors: {
-        cream: "#fbf6f2",
+        cream: "#fff5f8",
         porcelain: "#ffffff",
-        sand: "#b58a6b",
-        sage: "#9b7a69",
-        nude: "#e9aeb8",
-        gold: "#f7d6dc",
-        steel: "#f1e8e1",
-        charcoal: "#2f241f",
-        warm: "#7d685c",
+        sand: "#f3d58d",
+        sage: "#b9125d",
+        nude: "#f7a9bf",
+        coral: "#df176f",
+        mint: "#fde8ef",
+        sky: "#fff0f4",
+        sunny: "#f7d979",
+        lilac: "#f9d3df",
+        gold: "#f2c75c",
+        steel: "#fde7ee",
+        charcoal: "#3b1728",
+        warm: "#7b3f56",
         blush: {
-          50: "#fff8f8",
-          100: "#fdecef",
-          200: "#f7d6dc",
-          300: "#e9aeb8",
-          400: "#d48794",
-          500: "#b86b78"
+          50: "#fff7fa",
+          100: "#fde7ef",
+          200: "#fac9d8",
+          300: "#f49ab7",
+          400: "#ed5c94",
+          500: "#df176f"
         },
-        ink: "#2f241f"
+        ink: "#3a1427"
       },
       boxShadow: {
-        soft: "0 18px 45px rgba(20, 21, 24, 0.09)",
-        editorial: "0 28px 70px rgba(20, 21, 24, 0.14)"
+        soft: "0 18px 45px rgba(223, 23, 111, 0.11)",
+        editorial: "0 28px 70px rgba(185, 18, 93, 0.16)"
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],

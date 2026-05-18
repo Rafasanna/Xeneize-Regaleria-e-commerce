@@ -64,7 +64,7 @@ export const categoryTiles = [
     title: "Libreria",
     image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
     to: "/productos?categoria=Libreria",
-    accent: "bg-ink text-white",
+    accent: "bg-coral text-white",
     badge: "LIBRERIA",
     mood: "Agendas, cuadernos, utiles y organizacion.",
     subcategories: ["Escolar", "Universitario", "Agendas", "Libros"]

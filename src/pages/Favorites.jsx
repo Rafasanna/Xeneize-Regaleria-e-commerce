@@ -22,10 +22,10 @@ export function Favorites() {
           {favorites.map((product) => <ProductCard key={product.id} product={product} onToast={showToast} />)}
         </div>
       ) : (
-        <div className="mt-8 rounded-lg bg-white p-10 text-center shadow-sm ring-1 ring-black/10">
-          <Heart className="mx-auto h-10 w-10 text-nude" />
+        <div className="mt-8 rounded-lg bg-white p-10 text-center shadow-sm ring-1 ring-coral/10">
+          <Heart className="mx-auto h-10 w-10 text-coral" />
           <h2 className="mt-4 text-xl font-black">Todavia no guardaste favoritos</h2>
-          <p className="mt-2 text-sm text-zinc-600">Marca productos para encontrarlos rapido despues.</p>
+          <p className="mt-2 text-sm text-warm">Marca productos para encontrarlos rapido despues.</p>
           <Link to="/productos" className="mt-6 inline-block"><Button>Explorar productos</Button></Link>
         </div>
       )}

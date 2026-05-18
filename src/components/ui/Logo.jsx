@@ -6,10 +6,10 @@ export function Logo({ compact = false }) {
       <img
         src="/logoxeneize.png"
         alt="Xeneize Regaleria"
-        className={compact ? "h-12 w-12 rounded-full object-cover ring-2 ring-nude/15" : "h-14 w-14 rounded-full object-cover ring-2 ring-nude/15"}
+        className={compact ? "h-12 w-12 rounded-full object-cover ring-2 ring-coral/20" : "h-14 w-14 rounded-full object-cover ring-2 ring-coral/20"}
       />
       {!compact ? (
-        <span className="hidden text-base font-black uppercase tracking-wide sm:block">
+        <span className="hidden text-base font-black uppercase tracking-wide text-ink sm:block">
           Xeneize Regaleria
         </span>
       ) : null}
