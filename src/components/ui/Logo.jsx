@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 
 export function Logo({ compact = false }) {
+  const circleClass = compact ? "h-12 w-12 md:h-14 md:w-14" : "h-16 w-16 md:h-24 md:w-24";
+  const imageClass = compact ? "scale-[1.45]" : "scale-[1.4]";
+
   return (
     <Link to="/" className="flex flex-col items-center justify-center gap-3 group">
-      <img
-        src="/logoxeneize.png"
-        alt="Xeneize Regaleria"
-        className={compact ? "h-14 w-14 md:h-16 md:w-16 object-contain bg-white rounded-full p-0.5 shadow-sm scale-125 transition-transform group-hover:scale-[1.3]" : "h-20 w-20 md:h-28 md:w-28 object-contain bg-white rounded-full p-1 shadow-md scale-125 transition-transform group-hover:scale-[1.3]"}
-      />
+      <span className={`${circleClass} grid place-items-center overflow-visible rounded-full bg-white shadow-sm transition-transform group-hover:scale-105`}>
+        <img
+          src="/logoxeneize.png"
+          alt="Xeneize Regaleria"
+          className={`h-full w-full object-contain ${imageClass}`}
+        />
+      </span>
       <div className="flex flex-col items-center text-center gap-2">
         <span className="text-xl md:text-2xl font-serif font-bold uppercase tracking-[0.2em] text-[#222] leading-none">
           Xeneize Regaleria
