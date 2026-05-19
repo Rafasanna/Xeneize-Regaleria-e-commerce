@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export function Logo({ compact = false, variant = "default" }) {
   const isWhite = variant === "white";
   const imageClassName = [
-    compact ? "h-14 w-14" : "h-20 w-20",
+    compact ? "h-14 w-14 scale-125" : "h-20 w-20 scale-125",
     "rounded-full object-contain",
     isWhite ? "brightness-0 invert drop-shadow-[0_1px_6px_rgba(62,39,35,0.3)]" : ""
   ].join(" ");

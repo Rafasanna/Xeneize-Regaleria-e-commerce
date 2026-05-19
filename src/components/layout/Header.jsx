@@ -57,7 +57,7 @@ export function Header() {
         </button>
 
         <Link to="/" className="grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-coral/15" aria-label="Xeneize Regaleria">
-          <img src="/logoxeneize-header.png" alt="Xeneize Regaleria" className="h-full w-full object-cover" />
+          <img src="/logoxeneize-header.png" alt="Xeneize Regaleria" className="h-full w-full scale-125 object-cover" />
         </Link>
 
         <nav className="hidden min-w-0 flex-1 flex-nowrap items-center justify-start gap-0.5 lg:flex">
@@ -93,12 +93,12 @@ export function Header() {
         </nav>
 
         <form onSubmit={submitSearch} className="hidden">
-          <Search className="h-5 w-5 text-coral/65" />
+          <Search className="h-5 w-5 text-black/65" />
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Buscar productos"
-            className="h-12 flex-1 bg-transparent px-3 text-sm text-ink outline-none"
+            placeholder="¿Qué estás buscando?"
+            className="h-12 flex-1 bg-transparent px-3 text-sm text-black placeholder:text-black/60 outline-none"
           />
         </form>
 
@@ -134,9 +134,9 @@ export function Header() {
               </button>
             </div>
 
-            <form onSubmit={submitSearch} className="mt-5 flex items-center rounded-full bg-blush-50 px-4 ring-1 ring-coral/15 focus-within:ring-2 focus-within:ring-coral/30">
-              <Search className="h-5 w-5 text-coral/65" />
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar productos" className="h-12 flex-1 bg-transparent px-3 text-sm text-ink outline-none" />
+            <form onSubmit={submitSearch} className="mt-5 flex items-center rounded-full bg-blush-50 px-4 ring-1 ring-black/15 focus-within:ring-2 focus-within:ring-black/30">
+              <Search className="h-5 w-5 text-black/65" />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="¿Qué estás buscando?" className="h-12 flex-1 bg-transparent px-3 text-sm text-black placeholder:text-black/60 outline-none" />
             </form>
 
             <div className="mt-6 grid gap-2">
