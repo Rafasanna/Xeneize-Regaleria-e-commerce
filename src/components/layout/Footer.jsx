@@ -14,61 +14,61 @@ const helpItems = ["Como comprar", "Medios de pago", "Envios", "Cambios y devolu
 
 export function Footer() {
   return (
-    <footer className="mt-16 bg-ink text-white">
-      <div className="container-page grid gap-10 border-t border-blush-200/10 py-12 md:grid-cols-[1.35fr_1fr_1fr_1fr]">
+    <footer className="mt-16 bg-[#FFEBF0] text-[#3a1427]">
+      <div className="container-page grid gap-10 border-t border-pink-200 py-12 md:grid-cols-[1.35fr_1fr_1fr_1fr]">
         <div className="space-y-4">
-          <Logo variant="white" />
-          <p className="max-w-sm text-sm leading-6 text-white/68">
+          <Logo compact />
+          <p className="max-w-sm text-sm leading-6 text-[#3a1427]/80">
             Regaleria, papeleria, deco y detalles personalizados para resolver regalos con una experiencia simple y clara.
           </p>
-          <p className="text-sm font-semibold text-white/86">Supremos Entrerriano 572, Santa Elena, Entre Rios</p>
+          <p className="text-sm font-semibold text-[#3a1427]">Supremos Entrerriano 572, Santa Elena, Entre Rios</p>
           <div className="flex gap-2">
-            <a href={buildWhatsAppUrl("Hola, quiero consultar por Xeneize Regaleria")} className="grid h-10 w-10 place-items-center rounded-full bg-[#25D366] text-white transition hover:bg-[#1ebe5d]" aria-label="WhatsApp">
+            <a href={buildWhatsAppUrl("Hola, quiero consultar por Xeneize Regaleria")} className="grid h-10 w-10 place-items-center rounded-full bg-pink-100 text-[#3a1427] transition hover:bg-pink-200" aria-label="WhatsApp">
               <MessageCircle className="h-5 w-5" />
             </a>
-            <a href="https://www.instagram.com/" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-coral hover:text-white" aria-label="Instagram">
+            <a href="https://www.instagram.com/" className="grid h-10 w-10 place-items-center rounded-full bg-pink-100 text-[#3a1427] transition hover:bg-pink-200" aria-label="Instagram">
               <Camera className="h-5 w-5" />
             </a>
-            <a href="mailto:contacto@xeneizeregaleria.com" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-coral hover:text-white" aria-label="Email">
+            <a href="mailto:contacto@xeneizeregaleria.com" className="grid h-10 w-10 place-items-center rounded-full bg-pink-100 text-[#3a1427] transition hover:bg-pink-200" aria-label="Email">
               <Mail className="h-5 w-5" />
             </a>
           </div>
         </div>
 
         <div>
-          <h3 className="text-sm font-black uppercase tracking-wide text-white/90">Xeneize Regaleria</h3>
-          <div className="mt-4 grid gap-2 text-sm text-white/62">
-            {brandLinks.map((item) => <Link key={item.label} to={item.to} className="hover:text-gold">{item.label}</Link>)}
-            <a href={buildWhatsAppUrl("Hola, quiero contactar a Xeneize Regaleria")} className="hover:text-gold">Contacto</a>
+          <h3 className="text-sm font-black uppercase tracking-wide text-[#3a1427]">Xeneize Regaleria</h3>
+          <div className="mt-4 grid gap-2 text-sm text-[#3a1427]/80">
+            {brandLinks.map((item) => <Link key={item.label} to={item.to} className="hover:text-pink-600 font-medium">{item.label}</Link>)}
+            <a href={buildWhatsAppUrl("Hola, quiero contactar a Xeneize Regaleria")} className="hover:text-pink-600 font-medium">Contacto</a>
           </div>
         </div>
 
         <div>
-          <h3 className="text-sm font-black uppercase tracking-wide text-white/90">Ayuda</h3>
-          <div className="mt-4 grid gap-2 text-sm text-white/62">
-            {helpItems.map((item) => <span key={item}>{item}</span>)}
+          <h3 className="text-sm font-black uppercase tracking-wide text-[#3a1427]">Ayuda</h3>
+          <div className="mt-4 grid gap-2 text-sm text-[#3a1427]/80">
+            {helpItems.map((item) => <span key={item} className="font-medium">{item}</span>)}
           </div>
         </div>
 
         <div>
-          <h3 className="text-sm font-black uppercase tracking-wide text-white/90">Contacto</h3>
-          <div className="mt-4 grid gap-2 text-sm text-white/62">
-            <a href={buildWhatsAppUrl("Hola, necesito ayuda con una compra")} className="inline-flex items-center gap-2 hover:text-[#25D366]">
+          <h3 className="text-sm font-black uppercase tracking-wide text-[#3a1427]">Contacto</h3>
+          <div className="mt-4 grid gap-2 text-sm text-[#3a1427]/80">
+            <a href={buildWhatsAppUrl("Hola, necesito ayuda con una compra")} className="inline-flex items-center gap-2 hover:text-pink-600 font-medium">
               <MessageCircle className="h-4 w-4" />
               WhatsApp
             </a>
-            <a href="https://www.instagram.com/" className="inline-flex items-center gap-2 hover:text-gold">
+            <a href="https://www.instagram.com/" className="inline-flex items-center gap-2 hover:text-pink-600 font-medium">
               <Camera className="h-4 w-4" />
               Instagram
             </a>
-            <a href="mailto:contacto@xeneizeregaleria.com" className="inline-flex items-center gap-2 hover:text-gold">
+            <a href="mailto:contacto@xeneizeregaleria.com" className="inline-flex items-center gap-2 hover:text-pink-600 font-medium">
               <Mail className="h-4 w-4" />
               Email
             </a>
           </div>
         </div>
       </div>
-      <div className="border-t border-blush-200/10 py-5 text-center text-xs text-white/45">
+      <div className="border-t border-pink-200 py-5 text-center text-xs text-[#3a1427]/60 font-medium">
         Xeneize Regaleria - Demo ecommerce
       </div>
     </footer>

@@ -9,33 +9,23 @@ export const useShopStore = create(
       user: null,
       addToCart: (product, quantity = 1) =>
         set((state) => {
-          const stock = Number(product.stock ?? 999999);
-          if (stock <= 0) return state;
           const existing = state.cart.find((item) => item.id === product.id);
           if (existing) {
-            const nextQuantity = Math.min(stock, existing.quantity + quantity);
             return {
               cart: state.cart.map((item) =>
-                item.id === product.id ? { ...item, quantity: nextQuantity } : item
+                item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
               )
             };
           }
-          return { cart: [...state.cart, { ...product, quantity: Math.min(stock, quantity) }] };
+          return { cart: [...state.cart, { ...product, quantity }] };
         }),
       removeFromCart: (id) => set((state) => ({ cart: state.cart.filter((item) => item.id !== id) })),
       updateQuantity: (id, quantity) =>
-        set((state) => {
-          const item = state.cart.find((cartItem) => cartItem.id === id);
-          const stock = Number(item?.stock ?? 999999);
-
-          return {
-            cart: quantity <= 0
-              ? state.cart.filter((cartItem) => cartItem.id !== id)
-              : state.cart.map((cartItem) => (
-                cartItem.id === id ? { ...cartItem, quantity: Math.min(stock, quantity) } : cartItem
-              ))
-          };
-        }),
+        set((state) => ({
+          cart: quantity <= 0
+            ? state.cart.filter((item) => item.id !== id)
+            : state.cart.map((item) => (item.id === id ? { ...item, quantity } : item))
+        })),
       clearCart: () => set({ cart: [] }),
       toggleFavorite: (product) =>
         set((state) => {

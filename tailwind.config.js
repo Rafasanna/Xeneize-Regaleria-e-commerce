@@ -3,41 +3,50 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     ringColor: {
-      DEFAULT: "rgb(121 85 72 / 0.28)"
+      DEFAULT: "rgb(0 0 0 / 0.1)"
     },
     extend: {
       colors: {
-        cream: "#FCF8F8",
+        cream: "#FCFBF8",
         porcelain: "#ffffff",
-        sand: "#D7CCC8",
-        sage: "#5D4037",
-        nude: "#F8BBD0",
-        coral: "#795548",
-        mint: "#FCE4EC",
-        sky: "#F5EFE6",
-        sunny: "#E1C699",
-        lilac: "#EAD5D5",
-        gold: "#A1887F",
-        steel: "#EFEBE9",
-        charcoal: "#3E2723",
-        warm: "#5D4037",
+        sand: "#E5D3B3",
+        sage: "#9CA3AF",
+        nude: "#E8E0D5",
+        coral: "#1A1A1A",
+        mint: "#F3F4F6",
+        sky: "#F8FAFC",
+        sunny: "#FCD34D",
+        lilac: "#F3F4F6",
+        gold: "#D4AF37",
+        steel: "#F3F4F6",
+        charcoal: "#1F2937",
+        warm: "#4B5563",
         blush: {
-          50: "#FFF3F6",
-          100: "#FCE4EC",
-          200: "#F8BBD0",
-          300: "#F48FB1",
-          400: "#F06292",
-          500: "#795548"
+          50: "#FAF8F5",
+          100: "#F5F1EB",
+          200: "#EAE1D3",
+          300: "#DED0BC",
+          400: "#D1C0A5",
+          500: "#C1AD8D"
         },
-        ink: "#3E2723"
+        ink: "#0A0A0A"
       },
       boxShadow: {
-        soft: "0 18px 45px rgba(121, 85, 72, 0.11)",
-        editorial: "0 28px 70px rgba(121, 85, 72, 0.16)"
+        soft: "0 10px 40px rgba(0, 0, 0, 0.04)",
+        editorial: "0 20px 60px rgba(0, 0, 0, 0.06)"
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
         serif: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        }
+      },
+      animation: {
+        marquee: 'marquee 25s linear infinite',
       }
     }
   },

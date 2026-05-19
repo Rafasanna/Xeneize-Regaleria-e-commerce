@@ -1,79 +1,70 @@
-import { Heart, ShoppingBag } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { formatPrice } from "../../lib/utils";
 import { useShopStore } from "../../store/useShopStore";
-import { Button } from "./Button";
 
 export function ProductCard({ product, onToast }) {
-  const addToCart = useShopStore((state) => state.addToCart);
-  const cartQuantity = useShopStore((state) => state.cart.find((item) => item.id === product.id)?.quantity ?? 0);
   const toggleFavorite = useShopStore((state) => state.toggleFavorite);
   const isFavorite = useShopStore((state) => state.isFavorite(product.id));
-  const stockLeft = Math.max(0, Number(product.stock ?? 0) - cartQuantity);
-  const isOutOfStock = Number(product.stock ?? 0) <= 0;
-  const isMaxReached = !isOutOfStock && stockLeft <= 0;
 
-  const handleCart = () => {
-    if (isOutOfStock || isMaxReached) {
-      onToast?.(isOutOfStock ? "Producto sin stock" : "Ya agregaste todo el stock disponible");
-      return;
-    }
-    addToCart(product);
-    onToast?.(`${product.name} agregado al carrito`);
-  };
+  // Simular swatches basados en el id para que parezca Ganga Home
+  const hasOptions = product.id % 2 === 0;
 
   return (
-    <motion.article
-      whileHover={{ y: -4 }}
-      className="group flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-coral/10 transition hover:shadow-soft hover:ring-coral/25"
-    >
-      <div className="relative aspect-[4/5] overflow-hidden bg-steel">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          loading="lazy"
-        />
-        {isOutOfStock ? (
-          <span className="absolute left-3 top-3 rounded-full bg-ink px-3 py-1.5 text-xs font-black tracking-wide text-white">
-            Sin stock
-          </span>
-        ) : product.badge ? (
-          <span className={`absolute left-3 top-3 rounded-full px-3 py-1.5 text-xs font-black tracking-wide ${product.oldPrice ? "bg-gold text-ink" : "bg-coral text-white"}`}>
-            {product.badge}
-          </span>
-        ) : null}
+    <article className="group flex flex-col w-full relative mb-6">
+      <div className="relative aspect-[4/5] bg-[#F7F7F7] overflow-hidden">
+        <Link to={`/producto/${product.id}`}>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+        </Link>
         <button
           onClick={() => toggleFavorite(product)}
-          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white/95 text-ink shadow-sm ring-1 ring-coral/15 transition hover:bg-blush-100 hover:text-coral"
+          className="absolute bottom-3 right-3 bg-white w-8 h-8 rounded-md shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
           aria-label="Guardar favorito"
         >
-          <Heart className={isFavorite ? "h-5 w-5 fill-coral text-coral" : "h-5 w-5"} />
+          <Heart className={`h-[18px] w-[18px] transition-colors ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-600 stroke-[1.5]"}`} />
         </button>
       </div>
-      <div className="flex flex-1 flex-col p-4">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-coral">{product.category}</p>
-          <Link to={`/producto/${product.id}`} className="line-clamp-2 mt-1 min-h-12 text-lg font-black leading-snug tracking-tight hover:text-coral">
-            {product.name}
-          </Link>
+
+      <div className="mt-4 flex flex-col text-left px-1">
+        {hasOptions ? (
+          <>
+            <span className="text-[9px] uppercase tracking-widest text-gray-400 mb-1.5 font-medium">Otras opciones:</span>
+            <div className="flex gap-2 mb-3">
+              <div className="w-5 h-5 rounded-full bg-[#E5E0D8] border-2 border-white outline outline-1 outline-gray-300 cursor-pointer"></div>
+              <div className="w-5 h-5 rounded-full bg-[#D1C6BB] border-2 border-white cursor-pointer hover:outline hover:outline-1 hover:outline-gray-300"></div>
+              <div className="w-5 h-5 rounded-full bg-[#A89F91] border-2 border-white cursor-pointer hover:outline hover:outline-1 hover:outline-gray-300"></div>
+            </div>
+          </>
+        ) : (
+          <div className="h-[42px]"></div> /* Placeholder to keep alignment */
+        )}
+
+        <Link to={`/producto/${product.id}`} className="text-[13px] text-gray-500 hover:text-black font-light leading-relaxed line-clamp-2 min-h-[38px]">
+          {product.name}
+        </Link>
+
+        <div className="mt-2 min-h-[16px]">
+          {product.oldPrice ? (
+            <span className="text-xs text-gray-400 line-through tracking-wide">
+              {formatPrice(product.oldPrice)}
+            </span>
+          ) : null}
         </div>
-        <div className="mt-3 flex items-end gap-2">
-          <span className="text-xl font-black text-ink">{formatPrice(product.price)}</span>
-          {product.oldPrice ? <span className="pb-0.5 text-sm text-warm/55 line-through">{formatPrice(product.oldPrice)}</span> : null}
-        </div>
-        <p className="mt-2 text-xs font-bold text-warm">{isMaxReached ? "Stock máximo en carrito" : `${product.stock} disponibles`}</p>
-        <div className="mt-auto grid grid-cols-[1fr_auto] gap-2 pt-4">
-          <Button onClick={handleCart} disabled={isOutOfStock || isMaxReached} className="whitespace-nowrap px-3 font-black">
-            <ShoppingBag className="h-4 w-4" />
-            {isMaxReached ? "Máximo" : "Agregar"}
-          </Button>
-          <Link to={`/producto/${product.id}`} className="inline-flex min-h-11 items-center justify-center rounded-full bg-steel px-4 text-sm font-black text-ink ring-1 ring-coral/10 transition hover:bg-blush-200 hover:text-coral">
-            Ver
-          </Link>
+
+        <div className="mt-0.5 flex flex-col">
+          <span className="text-[15px] font-bold text-red-600 tracking-tight">
+            {formatPrice(product.price)} <span className="font-semibold text-[13px]">con Transferencia</span>
+          </span>
+          <span className="text-[10px] text-gray-400 mt-1 font-medium tracking-wide">
+            6 cuotas sin interés de {formatPrice(product.price / 6)}
+          </span>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }

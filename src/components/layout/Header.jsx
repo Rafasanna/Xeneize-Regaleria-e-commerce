@@ -1,31 +1,15 @@
-import { ChevronDown, Gift, Heart, Menu, MessageCircle, Search, ShieldCheck, ShoppingBag, Truck, User, X } from "lucide-react";
+import { ChevronDown, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { categories } from "../../data/categories";
-import { buildWhatsAppUrl } from "../../lib/utils";
 import { useShopStore } from "../../store/useShopStore";
-
-const topBenefits = [
-  { label: "Envios a todo el pais", icon: Truck },
-  { label: "Pagos seguros", icon: ShieldCheck },
-  { label: "Regalos personalizados", icon: Gift },
-  { label: "Atencion por WhatsApp", icon: MessageCircle }
-];
-
-const mainLinks = [
-  { label: "Inicio", to: "/" },
-  { label: "Tienda", to: "/productos" },
-  { label: "Ofertas", to: "/ofertas" }
-];
+import { Logo } from "../ui/Logo";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [expanded, setExpanded] = useState(false);
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const cart = useShopStore((state) => state.cart);
-  const favorites = useShopStore((state) => state.favorites);
   const user = useShopStore((state) => state.user);
   const cartCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart]);
 
@@ -36,151 +20,142 @@ export function Header() {
   };
 
   const closeMobile = () => setMobileOpen(false);
-  const buildSubcategoryPath = (category, subcategory) => `${category.path}&subcategoria=${encodeURIComponent(subcategory)}`;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-coral/15 bg-blush-100/95 text-ink backdrop-blur">
-      <div className="bg-coral text-white">
-        <div className="container-page grid min-h-10 grid-cols-2 gap-2 py-2 text-xs font-bold sm:grid-cols-4">
-          {topBenefits.map(({ label, icon: Icon }) => (
-            <span key={label} className="flex items-center justify-center gap-2 text-center text-white/90">
-              <Icon className="h-4 w-4 shrink-0 text-gold" />
-              {label}
-            </span>
-          ))}
+    <header className="sticky top-0 z-40 bg-[#FFEBF0] font-sans w-full border-b border-pink-200">
+      <div className="container-page px-4 sm:px-6 lg:px-8">
+        {/* Top Row: Search, Logo, Actions */}
+        <div className="flex items-center justify-between pt-4 md:pt-6 pb-3 md:pb-4 relative">
+          {/* Left: Search */}
+          <div className="flex flex-1 items-center">
+            <button className="lg:hidden text-black mr-3" onClick={() => setMobileOpen(true)} aria-label="Abrir menu">
+              <Menu className="h-6 w-6 stroke-[1.5]" />
+            </button>
+            <form onSubmit={submitSearch} className="hidden lg:flex w-full max-w-[280px] items-center border border-black/30 bg-white/50 px-3 py-1.5 transition-colors focus-within:border-black focus-within:bg-white rounded">
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="¿Qué estás buscando?"
+                className="w-full bg-transparent text-[13px] outline-none text-black placeholder:text-black/60 font-medium"
+              />
+              <button type="submit" className="text-black transition-colors ml-2">
+                <Search className="h-4 w-4 stroke-[2]" />
+              </button>
+            </form>
+          </div>
+
+          {/* Center: Logo */}
+          <div className="flex justify-center shrink-0 mx-2 md:mx-4 max-w-[50%]">
+            <div className="block lg:hidden w-full"><Logo compact /></div>
+            <div className="hidden lg:block w-full"><Logo /></div>
+          </div>
+
+          {/* Right: User & Cart */}
+          <div className="flex flex-1 items-center justify-end gap-4 lg:gap-8 text-[13px] text-black font-medium tracking-wide">
+            <Link to={user ? "/mi-cuenta" : "/login"} className="hidden md:flex items-center gap-1.5 hover:text-black/70 transition-colors">
+              <User className="h-[20px] w-[20px] stroke-[1.5]" />
+              <span>{user ? user.name.split(" ")[0] : "Ingresá / Registráte"}</span>
+            </Link>
+            <Link to="/carrito" className="flex items-center gap-1.5 hover:text-black/70 transition-colors relative">
+              <ShoppingBag className="h-6 w-6 md:h-[20px] md:w-[20px] stroke-[1.5]" />
+              {cartCount > 0 && <span className="absolute -top-1.5 -right-1.5 md:hidden bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartCount}</span>}
+              <span className="hidden md:inline">Carrito ({cartCount})</span>
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <div className="container-page flex min-h-16 items-center gap-4 py-2">
-        <button className="grid h-11 w-11 place-items-center rounded-full bg-white text-coral shadow-sm ring-1 ring-coral/15 lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Abrir menu">
-          <Menu className="h-5 w-5" />
-        </button>
-
-        <Link to="/" className="grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-coral/15" aria-label="Xeneize Regaleria">
-          <img src="/logoxeneize-header.png" alt="Xeneize Regaleria" className="h-full w-full scale-125 object-cover" />
-        </Link>
-
-        <nav className="hidden min-w-0 flex-1 flex-nowrap items-center justify-start gap-0.5 lg:flex">
-          {categories.map((category) => (
-            <div key={category.name} className="relative" onMouseEnter={() => setActiveCategory(category.name)} onMouseLeave={() => setActiveCategory(null)}>
+        {/* Bottom Row: Categories */}
+        <nav className="hidden lg:flex justify-center items-center gap-8 xl:gap-10 pb-5 pt-2">
+          <NavLink
+            to="/ofertas"
+            className="text-[13px] tracking-wide font-light transition-colors text-red-600 hover:text-red-700"
+          >
+            Ofertas
+          </NavLink>
+          {categories.slice(1, 7).map((category) => (
+            <div key={category.name} className="group relative">
               <Link
                 to={category.path}
-                className="flex whitespace-nowrap items-center gap-1 rounded-full px-2 py-2 text-[11px] font-black text-ink transition hover:bg-white hover:text-coral xl:px-3 xl:text-xs 2xl:px-4 2xl:text-sm"
+                className="flex items-center gap-1 text-[13px] tracking-wide font-light text-gray-500 hover:text-black transition-colors py-2"
               >
                 {category.name}
-                {category.subcategories.length ? <ChevronDown className={`h-4 w-4 transition ${activeCategory === category.name ? "rotate-180" : ""}`} /> : null}
+                {category.subcategories && category.subcategories.length > 0 && (
+                  <ChevronDown className="h-3 w-3 text-gray-400 transition-transform group-hover:rotate-180" />
+                )}
               </Link>
-              {activeCategory === category.name && category.subcategories.length ? (
-                <div className="absolute left-0 top-full w-64 pt-3">
-                  <div className="rounded-lg bg-white p-2 shadow-soft ring-1 ring-coral/15">
-                    <Link to={category.path} className="block rounded-md px-3 py-2 text-sm font-black text-coral transition hover:bg-steel">
-                      Ver todo
-                    </Link>
-                    {category.subcategories.map((subcategory) => (
-                      <Link
-                        key={subcategory}
-                        to={buildSubcategoryPath(category, subcategory)}
-                        className="block rounded-md px-3 py-2 text-sm font-semibold text-warm transition hover:bg-steel hover:text-coral"
-                      >
-                        {subcategory}
+              {category.subcategories && category.subcategories.length > 0 && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-white border border-gray-100 shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    {category.subcategories.map(sub => (
+                      <Link key={sub} to={`/productos?q=${sub}`} className="block px-5 py-2 text-[13px] font-light text-gray-500 hover:bg-gray-50 hover:text-black transition-colors">
+                        {sub}
                       </Link>
                     ))}
                   </div>
                 </div>
-              ) : null}
+              )}
             </div>
           ))}
+          <div className="group relative">
+            <Link to="/categorias" className="flex items-center gap-1 text-[13px] tracking-wide font-light text-gray-500 hover:text-black transition-colors py-2">
+              Todas las categorías
+              <ChevronDown className="h-3 w-3 text-gray-400 transition-transform group-hover:rotate-180" />
+            </Link>
+            <div className="absolute top-full right-0 mt-0 w-56 bg-white border border-gray-100 shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="py-2 grid gap-1">
+                {categories.map(category => (
+                  <Link key={category.name} to={category.path} className="block px-5 py-2 text-[13px] font-light text-gray-500 hover:bg-gray-50 hover:text-black transition-colors">
+                    {category.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </nav>
-
-        <form onSubmit={submitSearch} className="hidden">
-          <Search className="h-5 w-5 text-black/65" />
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="¿Qué estás buscando?"
-            className="h-12 flex-1 bg-transparent px-3 text-sm text-black placeholder:text-black/60 outline-none"
-          />
-        </form>
-
-        <div className="flex items-center gap-2">
-          <Link to={user ? "/mi-cuenta" : "/login"} className="hidden h-11 items-center gap-2 rounded-full px-3 text-sm font-bold text-ink transition hover:bg-white hover:text-coral sm:flex" aria-label="Mi cuenta">
-            <User className="h-5 w-5" />
-            <span className="hidden xl:inline">{user ? user.name.split(" ")[0] : "Ingresar"}</span>
-          </Link>
-          <Link to="/favoritos" className="relative grid h-11 w-11 place-items-center rounded-full text-ink transition hover:bg-white hover:text-coral" aria-label="Favoritos">
-            <Heart className="h-5 w-5" />
-            {favorites.length ? <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-coral px-1 text-xs font-black text-white">{favorites.length}</span> : null}
-          </Link>
-          <Link to="/carrito" className="relative hidden h-11 w-11 place-items-center rounded-full text-ink transition hover:bg-white hover:text-coral lg:grid" aria-label="Carrito">
-            <ShoppingBag className="h-5 w-5" />
-            {cartCount ? <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-coral px-1 text-xs font-black text-white">{cartCount}</span> : null}
-          </Link>
-          <Link to="/carrito" className="relative grid h-11 w-11 place-items-center rounded-full bg-coral text-white shadow-[0_10px_22px_rgba(121,85,72,0.2)] transition hover:bg-sage lg:hidden" aria-label="Carrito">
-            <ShoppingBag className="h-5 w-5" />
-            {cartCount ? <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-gold px-1 text-xs font-black text-ink">{cartCount}</span> : null}
-          </Link>
-        </div>
       </div>
 
-      {mobileOpen ? (
-        <div className="fixed inset-0 z-50 bg-ink/45 lg:hidden">
-          <aside className="h-full w-[88vw] max-w-sm overflow-y-auto bg-white p-4 shadow-soft">
-            <div className="flex items-center justify-between">
-              <Link to="/" onClick={closeMobile} className="text-base font-black uppercase tracking-wide text-ink">
-                Xeneize Regaleria
-              </Link>
-              <button onClick={closeMobile} className="grid h-10 w-10 place-items-center rounded-full bg-steel text-coral" aria-label="Cerrar menu">
-                <X className="h-5 w-5" />
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 lg:hidden">
+          <aside className="absolute top-0 left-0 h-full w-[85vw] max-w-sm overflow-y-auto bg-white p-6 shadow-xl">
+            <div className="flex items-center justify-between mb-8">
+              <Logo compact />
+              <button onClick={closeMobile} className="text-gray-500 hover:text-black transition-colors">
+                <X className="h-6 w-6 stroke-[1.5]" />
               </button>
             </div>
 
-            <form onSubmit={submitSearch} className="mt-5 flex items-center rounded-full bg-blush-50 px-4 ring-1 ring-black/15 focus-within:ring-2 focus-within:ring-black/30">
-              <Search className="h-5 w-5 text-black/65" />
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="¿Qué estás buscando?" className="h-12 flex-1 bg-transparent px-3 text-sm text-black placeholder:text-black/60 outline-none" />
+            <form onSubmit={submitSearch} className="flex items-center border border-gray-300 px-3 py-2 mb-6 focus-within:border-gray-500 transition-colors">
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="¿Qué estás buscando?" className="w-full bg-transparent text-[13px] font-light outline-none text-gray-800 placeholder:text-gray-400" />
+              <button type="submit" className="text-gray-400 hover:text-black transition-colors ml-2">
+                <Search className="h-4 w-4 stroke-[1.5]" />
+              </button>
             </form>
 
-            <div className="mt-6 grid gap-2">
-              {mainLinks.map((item) => (
-                <Link key={item.label} to={item.to} onClick={closeMobile} className="rounded-lg border border-coral/15 px-4 py-3 text-sm font-black text-ink transition hover:bg-steel hover:text-coral">
-                  {item.label}
+            <div className="flex flex-col gap-1">
+              <Link to={user ? "/mi-cuenta" : "/login"} onClick={closeMobile} className="flex items-center gap-3 text-[14px] font-light text-gray-600 hover:bg-gray-50 px-3 py-3 transition-colors">
+                <User className="h-5 w-5 stroke-[1.5]" />
+                {user ? user.name : "Ingresá / Registráte"}
+              </Link>
+              <div className="h-px bg-gray-100 my-2 mx-3" />
+
+              <Link to="/ofertas" onClick={closeMobile} className="text-[14px] font-light px-3 py-3 transition-colors text-red-600 hover:bg-red-50">
+                Ofertas
+              </Link>
+
+              {categories.slice(1).map((category) => (
+                <Link key={category.name} to={category.path} onClick={closeMobile} className="text-[14px] font-light text-gray-600 hover:bg-gray-50 px-3 py-3 transition-colors">
+                  {category.name}
                 </Link>
               ))}
 
-              <button onClick={() => setExpanded((value) => !value)} className="flex items-center justify-between rounded-lg border border-coral/15 px-4 py-3 text-left text-sm font-black text-ink transition hover:bg-steel hover:text-coral">
-                Categorias
-                <ChevronDown className={`h-4 w-4 transition ${expanded ? "rotate-180" : ""}`} />
-              </button>
-              {expanded ? (
-                <div className="rounded-lg border border-coral/15 bg-blush-50 p-2">
-                  <Link onClick={closeMobile} to="/categorias" className="block rounded-md px-3 py-2 text-sm font-black text-ink transition hover:bg-steel hover:text-coral">Ver todas</Link>
-                  {categories.filter((category) => category.name !== "Ofertas").map((category) => (
-                    <Link key={category.name} onClick={closeMobile} to={category.path} className="block rounded-md px-3 py-2 text-sm font-medium text-ink transition hover:bg-steel hover:text-coral">
-                      {category.name}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
-
-              <a href={buildWhatsAppUrl("Hola, quiero consultar por Xeneize Regaleria")} onClick={closeMobile} className="rounded-lg border border-coral/15 px-4 py-3 text-sm font-black text-ink transition hover:bg-steel hover:text-coral">
-                Contacto
-              </a>
-              <Link to="/carrito" onClick={closeMobile} className="flex items-center justify-between rounded-lg bg-coral px-4 py-3 text-sm font-black text-white transition hover:bg-sage">
-                Carrito
-                {cartCount ? <span className="grid h-6 min-w-6 place-items-center rounded-full bg-gold px-2 text-xs text-ink">{cartCount}</span> : null}
+              <Link to="/categorias" onClick={closeMobile} className="text-[14px] font-light text-gray-600 hover:bg-gray-50 px-3 py-3 transition-colors mt-2">
+                Ver todas las categorías
               </Link>
-            </div>
-
-            <div className="mt-6 grid gap-2 rounded-lg bg-blush-50 p-3">
-              {topBenefits.map(({ label, icon: Icon }) => (
-                <span key={label} className="flex items-center gap-2 text-sm font-bold text-ink">
-                  <Icon className="h-4 w-4 text-coral" />
-                  {label}
-                </span>
-              ))}
             </div>
           </aside>
         </div>
-      ) : null}
+      )}
     </header>
   );
 }
