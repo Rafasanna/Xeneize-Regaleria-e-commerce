@@ -40,8 +40,7 @@ export function ProductDetail() {
             {product.oldPrice ? <span className="pb-1 text-lg text-warm/55 line-through">{formatPrice(product.oldPrice)}</span> : null}
           </div>
           <p className="mt-5 max-w-xl leading-7 text-warm">{product.description}</p>
-          <div className="mt-5 grid gap-2 rounded-lg bg-steel p-4 text-sm text-warm ring-1 ring-coral/10">
-            <span>Stock disponible: <strong>{product.stock} unidades</strong></span>
+          <div className="mt-5 rounded-lg bg-steel p-4 text-sm text-warm ring-1 ring-coral/10">
             <span>Entrega: retiro en local o envio a domicilio</span>
           </div>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">

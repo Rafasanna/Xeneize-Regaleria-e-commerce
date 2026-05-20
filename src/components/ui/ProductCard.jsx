@@ -46,9 +46,6 @@ export function ProductCard({ product, onToast }) {
               <span className="block text-xs text-[#A78D95]/70 line-through">{formatPrice(product.oldPrice)}</span>
             ) : null}
             <span className="block truncate text-[14px] font-black tracking-tight text-[#6B4355] sm:text-lg">{formatPrice(product.price)}</span>
-            <span className="mt-1 block text-[11px] font-semibold text-[#A78D95]">
-              {product.stock > 0 ? `${product.stock} disponibles` : "Sin stock"}
-            </span>
           </div>
           <button
             onClick={() => {

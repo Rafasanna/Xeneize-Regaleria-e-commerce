@@ -30,7 +30,13 @@ const categoryPills = [
 
 export function Home() {
   const [toast, setToast] = useState("");
-  const featured = useMemo(() => products.filter((product) => product.featured).slice(0, 8), []);
+  const featured = useMemo(
+    () => products
+      .filter((product) => product.featured)
+      .sort((a, b) => (a.featuredPriority ?? 999) - (b.featuredPriority ?? 999))
+      .slice(0, 8),
+    []
+  );
   const offers = useMemo(() => products.filter((product) => product.oldPrice).slice(0, 4), []);
 
   const showToast = (message) => {

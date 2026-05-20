@@ -29,7 +29,9 @@ export function Products() {
       if (sort === "price-asc") return a.price - b.price;
       if (sort === "price-desc") return b.price - a.price;
       if (sort === "offers") return Number(Boolean(b.oldPrice)) - Number(Boolean(a.oldPrice));
-      return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
+      const featuredDiff = Number(Boolean(b.featured)) - Number(Boolean(a.featured));
+      if (featuredDiff) return featuredDiff;
+      return (a.featuredPriority ?? 999) - (b.featuredPriority ?? 999);
     });
   }, [category, q, sort, subcategory]);
 
