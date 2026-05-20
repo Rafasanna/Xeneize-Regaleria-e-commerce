@@ -71,7 +71,7 @@ export function Home() {
               <img
                 src="/xeneizeregaleria-hero.png"
                 alt="Xeneize Regalería"
-                className="absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-[40%] object-contain sm:h-[118%] sm:w-[118%] sm:-translate-y-[42%]"
+                className="absolute left-1/2 top-1/2 h-[145%] w-[145%] -translate-x-1/2 -translate-y-[47%] object-contain sm:h-[150%] sm:w-[150%] sm:-translate-y-[47%] lg:h-[154%] lg:w-[154%] lg:-translate-y-[47%]"
               />
             </div>
           </div>
@@ -79,15 +79,15 @@ export function Home() {
       </section>
 
       <section className="container-page py-5 sm:py-7">
-        <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-4 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
+        <div className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-4 sm:mx-0 sm:flex-wrap sm:gap-3 sm:overflow-visible sm:px-0">
           {categoryPills.map(({ label, to, icon: Icon, subcategories }) => (
-            <div key={label} className="group relative shrink-0">
-              <Link to={to} className="inline-flex items-center gap-2 rounded-full border border-[#F2E4E8] bg-white px-4 py-3 text-sm font-semibold text-[#4D3A42] shadow-sm transition hover:-translate-y-0.5 hover:border-[#C97A96]/30 hover:text-[#C97A96] hover:shadow-soft">
-                <Icon className="h-4 w-4" />
-                {label}
+            <div key={label} className="group relative shrink-0 snap-start">
+              <Link to={to} className="inline-flex h-11 max-w-[76vw] items-center gap-2 rounded-full border border-[#F2E4E8] bg-white px-3.5 text-[13px] font-semibold text-[#4D3A42] shadow-sm transition hover:-translate-y-0.5 hover:border-[#C97A96]/30 hover:text-[#C97A96] hover:shadow-soft sm:h-12 sm:max-w-none sm:px-4 sm:text-sm">
+                <Icon className="h-4 w-4 shrink-0" />
+                <span className="truncate whitespace-nowrap">{label}</span>
               </Link>
               {subcategories.length ? (
-                <div className="invisible absolute left-0 top-full z-30 mt-2 min-w-56 rounded-[1.25rem] border border-[#F2E4E8] bg-[#FFF9F6] p-2 opacity-0 shadow-editorial transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <div className="invisible absolute left-0 top-full z-30 mt-2 hidden min-w-56 rounded-[1.25rem] border border-[#F2E4E8] bg-[#FFF9F6] p-2 opacity-0 shadow-editorial transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 sm:block">
                   {subcategories.map((subcategory) => (
                     <Link
                       key={subcategory}
@@ -181,10 +181,10 @@ export function Home() {
 
       <a
         href={buildWhatsAppUrl("Hola, busco un regalo especial")}
-        className="fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#6B4355] text-[#FFF9F6] shadow-[0_16px_34px_rgba(107,67,85,0.28)] transition-transform hover:scale-105 hover:bg-[#C97A96] sm:bottom-6 sm:right-6"
+        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#FCECF2] text-[#6B4355] shadow-[0_16px_34px_rgba(107,67,85,0.18)] ring-1 ring-white/80 transition-transform hover:scale-105 hover:bg-[#F7DCE5] hover:text-[#C97A96] sm:bottom-6 sm:right-6 sm:h-16 sm:w-16"
         aria-label="Contactar por WhatsApp"
       >
-        <MessageCircle className="h-6 w-6 stroke-[1.5]" />
+        <MessageCircle className="h-7 w-7 stroke-[1.6] sm:h-8 sm:w-8" />
       </a>
 
       <Toast message={toast} />

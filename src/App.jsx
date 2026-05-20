@@ -16,10 +16,10 @@ import { Contact } from "./pages/Contact";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="flex min-h-screen flex-col bg-cream">
       <ScrollToTop />
       <Header />
-      <main>
+      <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/productos" element={<Products />} />

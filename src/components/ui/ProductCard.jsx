@@ -33,7 +33,7 @@ export function ProductCard({ product, onToast }) {
         </button>
       </div>
 
-      <div className="flex flex-1 flex-col px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
+      <div className="flex min-w-0 flex-1 flex-col px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
         <span className="text-[9px] font-black uppercase tracking-[0.14em] text-[#C97A96] sm:text-[10px] sm:tracking-[0.16em]">{product.category}</span>
         <Link to={`/producto/${product.id}`} className="mt-1.5 min-h-[40px] text-[13px] font-semibold leading-5 text-[#4D3A42] transition hover:text-[#C97A96] sm:mt-2 sm:min-h-[42px] sm:text-sm">
           {product.name}
@@ -41,11 +41,11 @@ export function ProductCard({ product, onToast }) {
         <p className="mt-1.5 line-clamp-2 min-h-[38px] text-[11px] leading-5 text-[#A78D95] sm:mt-2 sm:min-h-[40px] sm:text-xs">{product.description}</p>
 
         <div className="mt-3 flex items-end justify-between gap-2 sm:mt-4 sm:gap-3">
-          <div>
+          <div className="min-w-0">
             {product.oldPrice ? (
               <span className="block text-xs text-[#A78D95]/70 line-through">{formatPrice(product.oldPrice)}</span>
             ) : null}
-            <span className="text-[15px] font-black tracking-tight text-[#6B4355] sm:text-lg">{formatPrice(product.price)}</span>
+            <span className="block truncate text-[14px] font-black tracking-tight text-[#6B4355] sm:text-lg">{formatPrice(product.price)}</span>
             <span className="mt-1 block text-[11px] font-semibold text-[#A78D95]">
               {product.stock > 0 ? `${product.stock} disponibles` : "Sin stock"}
             </span>
