@@ -24,8 +24,8 @@ export function Favorites() {
       ) : (
         <div className="mt-8 rounded-lg bg-white p-10 text-center shadow-sm ring-1 ring-coral/10">
           <Heart className="mx-auto h-10 w-10 text-coral" />
-          <h2 className="mt-4 text-xl font-black">Todavia no guardaste favoritos</h2>
-          <p className="mt-2 text-sm text-warm">Marca productos para encontrarlos rapido despues.</p>
+          <h2 className="mt-4 text-xl font-black">Todavía no guardaste favoritos</h2>
+          <p className="mt-2 text-sm text-warm">Marca productos para encontrarlos rápido después.</p>
           <Link to="/productos" className="mt-6 inline-block"><Button>Explorar productos</Button></Link>
         </div>
       )}

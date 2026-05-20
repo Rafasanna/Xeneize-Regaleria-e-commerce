@@ -6,6 +6,7 @@ export const useShopStore = create(
     (set, get) => ({
       cart: [],
       favorites: [],
+      orders: [],
       user: null,
       addToCart: (product, quantity = 1) =>
         set((state) => {
@@ -27,6 +28,18 @@ export const useShopStore = create(
             : state.cart.map((item) => (item.id === id ? { ...item, quantity } : item))
         })),
       clearCart: () => set({ cart: [] }),
+      createOrder: (order) =>
+        set((state) => ({
+          orders: [
+            {
+              ...order,
+              id: order.id ?? `XE-${Date.now().toString().slice(-6)}`,
+              status: order.status ?? "pendiente",
+              createdAt: order.createdAt ?? new Date().toISOString()
+            },
+            ...state.orders
+          ]
+        })),
       toggleFavorite: (product) =>
         set((state) => {
           const exists = state.favorites.some((item) => item.id === product.id);

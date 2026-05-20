@@ -1,13 +1,13 @@
 export const categories = [
-  { name: "Ofertas", path: "/ofertas", subcategories: ["Promos", "Liquidacion", "Combos regalo"] },
+  { name: "Ofertas", path: "/ofertas", subcategories: ["Promos", "Liquidación", "Combos regalo"] },
   {
     name: "Bazar y hogar",
     path: "/productos?categoria=Bazar%20y%20hogar",
-    subcategories: ["Mates y termos", "Botellas y vasos", "Lamparas", "Deco"]
+    subcategories: ["Mates y termos", "Botellas y vasos", "Lámparas", "Deco"]
   },
   {
-    name: "Marroquineria y moda",
-    path: "/productos?categoria=Marroquineria%20y%20moda",
+    name: "Marroquinería y moda",
+    path: "/productos?categoria=Marroquinería%20y%20moda",
     subcategories: ["Mochilas", "Carteras y bolsos", "Valijas", "Bufandas", "Accesorios para el pelo"]
   },
   {
@@ -16,18 +16,18 @@ export const categories = [
     subcategories: ["Maquillaje", "Accesorios para unas", "Aros", "Collares", "Pulseras"]
   },
   {
-    name: "Libreria",
-    path: "/productos?categoria=Libreria",
+    name: "Librería",
+    path: "/productos?categoria=Librería",
     subcategories: ["Escolar", "Universitario", "Agendas", "Libros"]
   },
   {
-    name: "Jugueteria",
-    path: "/productos?categoria=Jugueteria",
+    name: "Juguetería",
+    path: "/productos?categoria=Juguetería",
     subcategories: ["Juguetes", "Peluches", "Juegos de mesa"]
   },
   {
-    name: "Tecnologia",
-    path: "/productos?categoria=Tecnologia",
+    name: "Tecnología",
+    path: "/productos?categoria=Tecnología",
     subcategories: ["Auriculares", "Carga y accesorios", "Parlantes"]
   }
 ];
@@ -39,13 +39,13 @@ export const categoryTiles = [
     to: "/productos?categoria=Bazar%20y%20hogar",
     accent: "bg-blush-200 text-ink",
     badge: "HOGAR",
-    mood: "Mates, deco y objetos utiles para todos los dias.",
-    subcategories: ["Mates y termos", "Botellas y vasos", "Lamparas", "Deco"]
+    mood: "Mates, deco y objetos útiles para todos los días.",
+    subcategories: ["Mates y termos", "Botellas y vasos", "Lámparas", "Deco"]
   },
   {
-    title: "Marroquineria y moda",
+    title: "Marroquinería y moda",
     image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80",
-    to: "/productos?categoria=Marroquineria%20y%20moda",
+    to: "/productos?categoria=Marroquinería%20y%20moda",
     accent: "bg-white text-ink",
     badge: "MODA",
     mood: "Bolsos, mochilas y accesorios de uso diario.",
@@ -61,30 +61,30 @@ export const categoryTiles = [
     subcategories: ["Maquillaje", "Aros", "Collares", "Pulseras"]
   },
   {
-    title: "Libreria",
+    title: "Librería",
     image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
-    to: "/productos?categoria=Libreria",
+    to: "/productos?categoria=Librería",
     accent: "bg-coral text-white",
     badge: "LIBRERIA",
-    mood: "Agendas, cuadernos, utiles y organizacion.",
+    mood: "Agendas, cuadernos, útiles y organización.",
     subcategories: ["Escolar", "Universitario", "Agendas", "Libros"]
   },
   {
-    title: "Jugueteria",
+    title: "Juguetería",
     image: "https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?auto=format&fit=crop&w=900&q=80",
-    to: "/productos?categoria=Jugueteria",
+    to: "/productos?categoria=Juguetería",
     accent: "bg-blush-200 text-ink",
     badge: "JUEGOS",
     mood: "Juguetes, juegos de mesa y regalos para chicos.",
     subcategories: ["Juguetes", "Peluches", "Juegos de mesa"]
   },
   {
-    title: "Tecnologia",
+    title: "Tecnología",
     image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80",
-    to: "/productos?categoria=Tecnologia",
+    to: "/productos?categoria=Tecnología",
     accent: "bg-nude text-white",
     badge: "TECH",
-    mood: "Auriculares, carga, parlantes y accesorios utiles.",
+    mood: "Auriculares, carga, parlantes y accesorios útiles.",
     subcategories: ["Auriculares", "Carga y accesorios", "Parlantes"]
   }
 ];

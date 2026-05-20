@@ -67,11 +67,11 @@ export function Products() {
             className="h-12 rounded-full border border-coral/15 bg-white px-4 text-sm outline-none focus:border-coral focus:ring-2 focus:ring-coral/20"
           />
           <select value={category} onChange={(event) => updateParam("categoria", event.target.value)} className="h-12 rounded-full border border-coral/15 bg-white px-4 text-sm outline-none focus:border-coral focus:ring-2 focus:ring-coral/20">
-            <option value="">Todas las categorias</option>
+            <option value="">Todas las categorías</option>
             {categories.filter((item) => item.name !== "Ofertas").map((item) => <option key={item.name} value={item.name}>{item.name}</option>)}
           </select>
           <select value={subcategory} onChange={(event) => updateParam("subcategoria", event.target.value)} className="h-12 rounded-full border border-coral/15 bg-white px-4 text-sm outline-none focus:border-coral focus:ring-2 focus:ring-coral/20" disabled={!category}>
-            <option value="">Todas las subcategorias</option>
+            <option value="">Todas las subcategorías</option>
             {subcategories.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
           <select value={sort} onChange={(event) => setSort(event.target.value)} className="h-12 rounded-full border border-coral/15 bg-white px-4 text-sm outline-none focus:border-coral focus:ring-2 focus:ring-coral/20">

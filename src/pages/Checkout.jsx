@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../components/ui/Button";
 import { formatPrice } from "../lib/utils";
 import { useShopStore } from "../store/useShopStore";
+import { deliveryMethods, paymentMethods } from "../data/orderModel";
 
 const steps = [
   { key: "datos", label: "Datos", icon: UserRound },
@@ -15,20 +16,28 @@ const steps = [
 export function Checkout() {
   const cart = useShopStore((state) => state.cart);
   const clearCart = useShopStore((state) => state.clearCart);
+  const createOrder = useShopStore((state) => state.createOrder);
   const [step, setStep] = useState(0);
+  const [error, setError] = useState("");
   const [completedOrder, setCompletedOrder] = useState(null);
   const [form, setForm] = useState({
     name: "",
     phone: "",
     email: "",
-    delivery: "Envio a domicilio",
+    delivery: "Envío a domicilio",
     address: "",
-    payment: "Tarjeta de debito/credito"
+    payment: "Mercado Pago (pendiente de configurar)"
   });
 
   const subtotal = useMemo(() => cart.reduce((sum, item) => sum + item.price * item.quantity, 0), [cart]);
-  const shipping = form.delivery === "Envio a domicilio" && subtotal > 0 ? 3500 : 0;
+  const shipping = 0;
   const total = subtotal + shipping;
+  const canContinue =
+    step === 0
+      ? form.name.trim() && form.phone.trim() && form.email.trim()
+      : step === 1 && form.delivery === "Envío a domicilio"
+        ? form.address.trim()
+        : true;
 
   if (!cart.length && !completedOrder) {
     return (
@@ -43,16 +52,41 @@ export function Checkout() {
   }
 
   const updateForm = (field, value) => setForm((current) => ({ ...current, [field]: value }));
-  const next = () => setStep((current) => Math.min(current + 1, steps.length - 1));
+  const next = () => {
+    if (!canContinue) {
+      setError("Completá los datos requeridos para continuar.");
+      return;
+    }
+    setError("");
+    setStep((current) => Math.min(current + 1, steps.length - 1));
+  };
   const back = () => setStep((current) => Math.max(current - 1, 0));
   const confirmOrder = () => {
-    setCompletedOrder({
+    const order = {
       id: `XE-${Date.now().toString().slice(-6)}`,
-      items: cart,
+      items: cart.map(({ id, name, price, quantity, category }) => ({ id, name, price, quantity, category })),
       subtotal,
       shipping,
-      total
-    });
+      total,
+      customer: {
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        address: form.delivery === "Envío a domicilio" ? form.address : ""
+      },
+      delivery: {
+        method: form.delivery,
+        address: form.delivery === "Envío a domicilio" ? form.address : "Retiro por el local"
+      },
+      payment: {
+        method: form.payment,
+        provider: form.payment.startsWith("Mercado Pago") ? "mercado-pago" : "manual",
+        status: "pendiente"
+      },
+      status: "pendiente"
+    };
+    createOrder(order);
+    setCompletedOrder(order);
     clearCart();
     setStep(3);
   };
@@ -61,6 +95,7 @@ export function Checkout() {
   const summarySubtotal = completedOrder?.subtotal ?? subtotal;
   const summaryShipping = completedOrder?.shipping ?? shipping;
   const summaryTotal = completedOrder?.total ?? total;
+  const summaryDelivery = completedOrder?.delivery?.method ?? form.delivery;
 
   return (
     <section className="container-page py-10">
@@ -84,10 +119,11 @@ export function Checkout() {
           {step === 1 ? <DeliveryStep form={form} updateForm={updateForm} /> : null}
           {step === 2 ? <PaymentStep form={form} updateForm={updateForm} /> : null}
           {step === 3 ? <ConfirmationStep order={completedOrder?.id} /> : null}
+          {error ? <p className="mt-5 rounded-lg bg-blush-50 p-3 text-sm font-semibold text-warm">{error}</p> : null}
 
           {step < 3 ? (
             <div className="mt-8 flex justify-between gap-3 border-t border-coral/10 pt-5">
-              <Button variant="secondary" onClick={back} disabled={step === 0}>Atras</Button>
+              <Button variant="secondary" onClick={back} disabled={step === 0}>Atrás</Button>
               {step === 2 ? (
                 <Button onClick={confirmOrder}>Confirmar compra</Button>
               ) : (
@@ -97,7 +133,7 @@ export function Checkout() {
           ) : null}
         </div>
 
-        <OrderSummary cart={summaryCart} subtotal={summarySubtotal} shipping={summaryShipping} total={summaryTotal} />
+        <OrderSummary cart={summaryCart} subtotal={summarySubtotal} shipping={summaryShipping} total={summaryTotal} delivery={summaryDelivery} />
       </div>
     </section>
   );
@@ -109,7 +145,7 @@ function CustomerStep({ form, updateForm }) {
       <h2 className="text-2xl font-black">Datos de contacto</h2>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <Field label="Nombre y apellido" value={form.name} onChange={(value) => updateForm("name", value)} />
-        <Field label="Telefono" value={form.phone} onChange={(value) => updateForm("phone", value)} />
+        <Field label="Teléfono" value={form.phone} onChange={(value) => updateForm("phone", value)} />
         <Field label="Email" value={form.email} onChange={(value) => updateForm("email", value)} className="sm:col-span-2" />
       </div>
     </div>
@@ -121,17 +157,17 @@ function DeliveryStep({ form, updateForm }) {
     <div>
       <h2 className="text-2xl font-black">Entrega</h2>
       <div className="mt-6 grid gap-3">
-        {["Envio a domicilio", "Retiro en local"].map((option) => (
+        {deliveryMethods.map((option) => (
           <label key={option} className="flex cursor-pointer items-center gap-3 rounded-lg border border-coral/15 p-4 transition hover:bg-blush-50">
             <input type="radio" checked={form.delivery === option} onChange={() => updateForm("delivery", option)} className="accent-coral" />
             <span className="font-bold">{option}</span>
           </label>
         ))}
       </div>
-      {form.delivery === "Envio a domicilio" ? (
-        <Field label="Direccion de entrega" value={form.address} onChange={(value) => updateForm("address", value)} className="mt-5" />
+      {form.delivery === "Envío a domicilio" ? (
+        <Field label="Dirección de entrega" value={form.address} onChange={(value) => updateForm("address", value)} className="mt-5" />
       ) : (
-        <p className="mt-5 rounded-lg bg-steel p-4 text-sm font-semibold text-warm">Retiro en Supremos Entrerriano 572, Santa Elena, Entre Rios.</p>
+        <p className="mt-5 rounded-lg bg-steel p-4 text-sm font-semibold text-warm">Retiro por el local: Supremos Entrerriano 572, Santa Elena, Entre Rios.</p>
       )}
     </div>
   );
@@ -140,16 +176,16 @@ function DeliveryStep({ form, updateForm }) {
 function PaymentStep({ form, updateForm }) {
   return (
     <div>
-      <h2 className="text-2xl font-black">Pago simulado</h2>
+      <h2 className="text-2xl font-black">Método de pago</h2>
       <div className="mt-6 grid gap-3">
-        {["Tarjeta de debito/credito", "Transferencia bancaria", "Efectivo al retirar"].map((option) => (
+        {paymentMethods.map((option) => (
           <label key={option} className="flex cursor-pointer items-center gap-3 rounded-lg border border-coral/15 p-4 transition hover:bg-blush-50">
             <input type="radio" checked={form.payment === option} onChange={() => updateForm("payment", option)} className="accent-coral" />
             <span className="font-bold">{option}</span>
           </label>
         ))}
       </div>
-      <p className="mt-5 rounded-lg bg-blush-50 p-4 text-sm font-semibold text-warm">Demo frontend: no se procesa ningun pago real.</p>
+      <p className="mt-5 rounded-lg bg-blush-50 p-4 text-sm font-semibold text-warm">Mercado Pago queda preparado visualmente. No se procesa ningun pago real sin credenciales e integracion backend.</p>
     </div>
   );
 }
@@ -158,8 +194,8 @@ function ConfirmationStep({ order }) {
   return (
     <div className="py-8 text-center">
       <CheckCircle2 className="mx-auto h-14 w-14 text-coral" />
-      <h2 className="mt-4 text-3xl font-black">Compra simulada confirmada</h2>
-      <p className="mt-2 text-sm font-semibold text-warm">Pedido {order}. El carrito fue vaciado para simular una compra finalizada.</p>
+      <h2 className="mt-4 text-3xl font-black">Pedido registrado</h2>
+      <p className="mt-2 text-sm font-semibold text-warm">Pedido {order}. Quedo guardado localmente con estado pendiente.</p>
       <Link to="/productos" className="mt-6 inline-block"><Button>Volver a la tienda</Button></Link>
     </div>
   );
@@ -174,7 +210,7 @@ function Field({ label, value, onChange, className = "" }) {
   );
 }
 
-function OrderSummary({ cart, subtotal, shipping, total }) {
+function OrderSummary({ cart, subtotal, shipping, total, delivery }) {
   return (
     <aside className="h-fit rounded-lg bg-white p-5 shadow-soft ring-1 ring-coral/10">
       <h2 className="text-xl font-black">Resumen</h2>
@@ -192,7 +228,7 @@ function OrderSummary({ cart, subtotal, shipping, total }) {
       </div>
       <div className="mt-6 space-y-3 border-t border-coral/10 pt-5 text-sm">
         <div className="flex justify-between"><span>Subtotal</span><strong>{formatPrice(subtotal)}</strong></div>
-        <div className="flex justify-between"><span>Envio</span><strong>{formatPrice(shipping)}</strong></div>
+        <div className="flex justify-between"><span>Envío</span><strong>{delivery === "Envío a domicilio" ? "A confirmar" : formatPrice(shipping)}</strong></div>
         <div className="flex justify-between border-t border-coral/10 pt-4 text-lg"><span>Total</span><strong>{formatPrice(total)}</strong></div>
       </div>
     </aside>

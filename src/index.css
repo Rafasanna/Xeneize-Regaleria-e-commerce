@@ -29,13 +29,13 @@
   }
 
   ::selection {
-    @apply bg-sand text-ink;
+    @apply bg-blush-200 text-ink;
   }
 }
 
 @layer components {
   .container-page {
-    @apply mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8;
   }
 
   .section-title {

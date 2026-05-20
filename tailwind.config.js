@@ -7,33 +7,36 @@ export default {
     },
     extend: {
       colors: {
-        cream: "#FCFBF8",
+        cream: "#FFF9F6",
         porcelain: "#ffffff",
-        sand: "#E5D3B3",
-        sage: "#9CA3AF",
-        nude: "#E8E0D5",
-        coral: "#1A1A1A",
-        mint: "#F3F4F6",
-        sky: "#F8FAFC",
-        sunny: "#FCD34D",
-        lilac: "#F3F4F6",
-        gold: "#D4AF37",
-        steel: "#F3F4F6",
-        charcoal: "#1F2937",
-        warm: "#4B5563",
+        sand: "#F8D4C4",
+        sage: "#C7D1C0",
+        nude: "#F2E4E8",
+        coral: "#6B4355",
+        rose: "#C97A96",
+        mauve: "#6B4355",
+        taupe: "#A78D95",
+        mint: "#C7D1C0",
+        sky: "#FCECF2",
+        sunny: "#F8D4C4",
+        lilac: "#DCCBE8",
+        gold: "#C97A96",
+        steel: "#F2E4E8",
+        charcoal: "#4D3A42",
+        warm: "#A78D95",
         blush: {
-          50: "#FAF8F5",
-          100: "#F5F1EB",
-          200: "#EAE1D3",
-          300: "#DED0BC",
-          400: "#D1C0A5",
-          500: "#C1AD8D"
+          50: "#FFF9F6",
+          100: "#FCECF2",
+          200: "#F7DCE5",
+          300: "#F2E4E8",
+          400: "#C97A96",
+          500: "#A78D95"
         },
-        ink: "#0A0A0A"
+        ink: "#4D3A42"
       },
       boxShadow: {
-        soft: "0 10px 40px rgba(0, 0, 0, 0.04)",
-        editorial: "0 20px 60px rgba(0, 0, 0, 0.06)"
+        soft: "0 16px 44px rgba(107, 67, 85, 0.08)",
+        editorial: "0 24px 70px rgba(107, 67, 85, 0.13)"
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],

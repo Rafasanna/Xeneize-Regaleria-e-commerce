@@ -1,6 +1,6 @@
-import { ChevronDown, Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { ChevronRight, Menu, Search, ShoppingBag, X } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { categories } from "../../data/categories";
 import { useShopStore } from "../../store/useShopStore";
 import { Logo } from "../ui/Logo";
@@ -10,7 +10,6 @@ export function Header() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const cart = useShopStore((state) => state.cart);
-  const user = useShopStore((state) => state.user);
   const cartCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart]);
 
   const submitSearch = (event) => {
@@ -22,140 +21,114 @@ export function Header() {
   const closeMobile = () => setMobileOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-[#FFEBF0] font-sans w-full border-b border-pink-200">
+    <header className="sticky top-0 z-40 w-full border-b border-white/70 bg-[#FCECF2]/95 font-sans shadow-[0_10px_28px_rgba(107,67,85,0.06)] backdrop-blur-xl">
       <div className="container-page px-4 sm:px-6 lg:px-8">
-        {/* Top Row: Search, Logo, Actions */}
-        <div className="flex items-center justify-between pt-4 md:pt-6 pb-3 md:pb-4 relative">
-          {/* Left: Search */}
+        <div className="relative flex min-h-[68px] items-center justify-between gap-3 py-2 md:min-h-[78px]">
           <div className="flex flex-1 items-center">
-            <button className="lg:hidden text-black mr-3" onClick={() => setMobileOpen(true)} aria-label="Abrir menu">
+            <button className="mr-2 grid h-10 w-10 place-items-center rounded-full bg-white/75 text-[#6B4355] shadow-sm ring-1 ring-white transition hover:bg-white hover:text-[#C97A96]" onClick={() => setMobileOpen(true)} aria-label="Abrir menu">
               <Menu className="h-6 w-6 stroke-[1.5]" />
             </button>
-            <form onSubmit={submitSearch} className="hidden lg:flex w-full max-w-[280px] items-center border border-black/30 bg-white/50 px-3 py-1.5 transition-colors focus-within:border-black focus-within:bg-white rounded">
+            <form onSubmit={submitSearch} className="hidden w-full max-w-[310px] items-center rounded-full border border-white/80 bg-white/75 px-4 py-2.5 shadow-sm transition focus-within:border-[#C97A96]/40 focus-within:bg-white focus-within:shadow-soft lg:flex">
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="¿Qué estás buscando?"
-                className="w-full bg-transparent text-[13px] outline-none text-black placeholder:text-black/60 font-medium"
+                className="w-full bg-transparent text-[13px] font-medium text-[#4D3A42] outline-none placeholder:text-[#A78D95]"
               />
-              <button type="submit" className="text-black transition-colors ml-2">
+              <button type="submit" className="ml-2 text-[#6B4355] transition-colors hover:text-[#C97A96]" aria-label="Buscar">
                 <Search className="h-4 w-4 stroke-[2]" />
               </button>
             </form>
           </div>
 
-          {/* Center: Logo */}
-          <div className="flex justify-center shrink-0 mx-2 md:mx-4 max-w-[50%]">
-            <div className="block lg:hidden w-full"><Logo compact /></div>
-            <div className="hidden lg:block w-full"><Logo /></div>
+          <div className="flex shrink-0 justify-center">
+            <Logo compact />
           </div>
 
-          {/* Right: User & Cart */}
-          <div className="flex flex-1 items-center justify-end gap-4 lg:gap-8 text-[13px] text-black font-medium tracking-wide">
-            <Link to={user ? "/mi-cuenta" : "/login"} className="hidden md:flex items-center gap-1.5 hover:text-black/70 transition-colors">
-              <User className="h-[20px] w-[20px] stroke-[1.5]" />
-              <span>{user ? user.name.split(" ")[0] : "Ingresá / Registráte"}</span>
-            </Link>
-            <Link to="/carrito" className="flex items-center gap-1.5 hover:text-black/70 transition-colors relative">
+          <div className="flex flex-1 items-center justify-end gap-2 text-[13px] font-medium tracking-wide text-[#4D3A42] md:gap-3">
+            <Link to="/carrito" className="relative flex items-center gap-1.5 rounded-full bg-white/75 px-3 py-2 text-[#6B4355] shadow-sm ring-1 ring-white transition hover:bg-white hover:text-[#C97A96]">
               <ShoppingBag className="h-6 w-6 md:h-[20px] md:w-[20px] stroke-[1.5]" />
-              {cartCount > 0 && <span className="absolute -top-1.5 -right-1.5 md:hidden bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartCount}</span>}
+              {cartCount > 0 && <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#C97A96] text-[10px] font-bold text-[#FFF9F6] md:hidden">{cartCount}</span>}
               <span className="hidden md:inline">Carrito ({cartCount})</span>
             </Link>
           </div>
         </div>
-
-        {/* Bottom Row: Categories */}
-        <nav className="hidden lg:flex justify-center items-center gap-8 xl:gap-10 pb-5 pt-2">
-          <NavLink
-            to="/ofertas"
-            className="text-[13px] tracking-wide font-light transition-colors text-red-600 hover:text-red-700"
-          >
-            Ofertas
-          </NavLink>
-          {categories.slice(1, 7).map((category) => (
-            <div key={category.name} className="group relative">
-              <Link
-                to={category.path}
-                className="flex items-center gap-1 text-[13px] tracking-wide font-light text-gray-500 hover:text-black transition-colors py-2"
-              >
-                {category.name}
-                {category.subcategories && category.subcategories.length > 0 && (
-                  <ChevronDown className="h-3 w-3 text-gray-400 transition-transform group-hover:rotate-180" />
-                )}
-              </Link>
-              {category.subcategories && category.subcategories.length > 0 && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-white border border-gray-100 shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <div className="py-2">
-                    {category.subcategories.map(sub => (
-                      <Link key={sub} to={`/productos?q=${sub}`} className="block px-5 py-2 text-[13px] font-light text-gray-500 hover:bg-gray-50 hover:text-black transition-colors">
-                        {sub}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-          <div className="group relative">
-            <Link to="/categorias" className="flex items-center gap-1 text-[13px] tracking-wide font-light text-gray-500 hover:text-black transition-colors py-2">
-              Todas las categorías
-              <ChevronDown className="h-3 w-3 text-gray-400 transition-transform group-hover:rotate-180" />
-            </Link>
-            <div className="absolute top-full right-0 mt-0 w-56 bg-white border border-gray-100 shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <div className="py-2 grid gap-1">
-                {categories.map(category => (
-                  <Link key={category.name} to={category.path} className="block px-5 py-2 text-[13px] font-light text-gray-500 hover:bg-gray-50 hover:text-black transition-colors">
-                    {category.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </nav>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 lg:hidden">
-          <aside className="absolute top-0 left-0 h-full w-[85vw] max-w-sm overflow-y-auto bg-white p-6 shadow-xl">
-            <div className="flex items-center justify-between mb-8">
+      {mobileOpen ? (
+        <div className="fixed inset-0 z-[999] bg-[#6B4355]/35 backdrop-blur-sm">
+          <button
+            type="button"
+            className="absolute inset-0 h-full w-full cursor-default"
+            onClick={closeMobile}
+            aria-label="Cerrar menu"
+          />
+          <aside className="fixed left-0 top-0 z-[1000] h-dvh w-[92vw] max-w-sm overflow-y-auto rounded-r-[2rem] bg-[#FFF9F6] p-5 text-[#4D3A42] shadow-[0_24px_80px_rgba(77,58,66,0.28)] ring-1 ring-[#F2E4E8] sm:p-6">
+            <div className="mb-5 flex items-center justify-between">
               <Logo compact />
-              <button onClick={closeMobile} className="text-gray-500 hover:text-black transition-colors">
+              <button type="button" onClick={closeMobile} className="grid h-10 w-10 place-items-center rounded-full bg-white text-[#A78D95] shadow-sm ring-1 ring-[#F2E4E8] transition-colors hover:text-[#6B4355]" aria-label="Cerrar menu">
                 <X className="h-6 w-6 stroke-[1.5]" />
               </button>
             </div>
 
-            <form onSubmit={submitSearch} className="flex items-center border border-gray-300 px-3 py-2 mb-6 focus-within:border-gray-500 transition-colors">
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="¿Qué estás buscando?" className="w-full bg-transparent text-[13px] font-light outline-none text-gray-800 placeholder:text-gray-400" />
-              <button type="submit" className="text-gray-400 hover:text-black transition-colors ml-2">
+            <p className="mb-4 px-3 text-xs font-black uppercase tracking-[0.18em] text-[#C97A96]">Menú</p>
+
+            <form onSubmit={submitSearch} className="mb-6 flex items-center rounded-full border border-[#F2E4E8] bg-white px-4 py-3 shadow-sm transition-colors focus-within:border-[#C97A96]/40">
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="¿Qué estás buscando?" className="w-full bg-transparent text-[13px] font-medium text-[#4D3A42] outline-none placeholder:text-[#A78D95]" />
+              <button type="submit" className="ml-2 text-[#6B4355] transition-colors hover:text-[#C97A96]">
                 <Search className="h-4 w-4 stroke-[1.5]" />
               </button>
             </form>
 
             <div className="flex flex-col gap-1">
-              <Link to={user ? "/mi-cuenta" : "/login"} onClick={closeMobile} className="flex items-center gap-3 text-[14px] font-light text-gray-600 hover:bg-gray-50 px-3 py-3 transition-colors">
-                <User className="h-5 w-5 stroke-[1.5]" />
-                {user ? user.name : "Ingresá / Registráte"}
+              <Link to="/" onClick={closeMobile} className="rounded-2xl px-3 py-3 text-[14px] font-medium text-[#4D3A42] transition-colors hover:bg-white hover:text-[#6B4355]">
+                Inicio
               </Link>
-              <div className="h-px bg-gray-100 my-2 mx-3" />
+              <div className="h-px bg-[#F2E4E8] my-2 mx-3" />
 
-              <Link to="/ofertas" onClick={closeMobile} className="text-[14px] font-light px-3 py-3 transition-colors text-red-600 hover:bg-red-50">
-                Ofertas
-              </Link>
-
-              {categories.slice(1).map((category) => (
-                <Link key={category.name} to={category.path} onClick={closeMobile} className="text-[14px] font-light text-gray-600 hover:bg-gray-50 px-3 py-3 transition-colors">
-                  {category.name}
-                </Link>
+              {categories.map((category) => (
+                <div key={category.name} className="rounded-[1.25rem] border border-[#F2E4E8] bg-white/65 p-2">
+                  <Link to={category.path} onClick={closeMobile} className={`flex items-center justify-between rounded-2xl px-3 py-2.5 text-[14px] font-semibold transition-colors hover:bg-[#FCECF2] ${category.name === "Ofertas" ? "text-[#C97A96]" : "text-[#4D3A42] hover:text-[#6B4355]"}`}>
+                    {category.name}
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                  {category.subcategories?.length ? (
+                    <div className="mt-1 flex flex-wrap gap-1.5 px-2 pb-1">
+                      {category.subcategories.map((subcategory) => (
+                        <Link
+                          key={subcategory}
+                          to={category.name === "Ofertas" ? `/ofertas?q=${encodeURIComponent(subcategory)}` : `/productos?categoria=${encodeURIComponent(category.name)}&subcategoria=${encodeURIComponent(subcategory)}`}
+                          onClick={closeMobile}
+                          className="rounded-full bg-[#FFF9F6] px-3 py-1.5 text-xs font-medium text-[#A78D95] ring-1 ring-[#F2E4E8] transition hover:bg-[#F7DCE5] hover:text-[#6B4355]"
+                        >
+                          {subcategory}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
               ))}
 
-              <Link to="/categorias" onClick={closeMobile} className="text-[14px] font-light text-gray-600 hover:bg-gray-50 px-3 py-3 transition-colors mt-2">
+              <Link to="/productos" onClick={closeMobile} className="mt-2 rounded-2xl px-3 py-3 text-[14px] font-medium text-[#4D3A42] transition-colors hover:bg-white hover:text-[#6B4355]">
+                Productos
+              </Link>
+              <Link to="/categorias" onClick={closeMobile} className="rounded-2xl px-3 py-3 text-[14px] font-medium text-[#4D3A42] transition-colors hover:bg-white hover:text-[#6B4355]">
                 Ver todas las categorías
+              </Link>
+              <Link to="/sobre-nosotros" onClick={closeMobile} className="rounded-2xl px-3 py-3 text-[14px] font-medium text-[#4D3A42] transition-colors hover:bg-white hover:text-[#6B4355]">
+                Sobre nosotros
+              </Link>
+              <Link to="/contacto" onClick={closeMobile} className="rounded-2xl px-3 py-3 text-[14px] font-medium text-[#4D3A42] transition-colors hover:bg-white hover:text-[#6B4355]">
+                Contacto
+              </Link>
+              <div className="h-px bg-[#F2E4E8] my-2 mx-3" />
+              <Link to="/carrito" onClick={closeMobile} className="rounded-2xl px-3 py-3 text-[14px] font-semibold text-[#6B4355] transition-colors hover:bg-white">
+                Carrito ({cartCount})
               </Link>
             </div>
           </aside>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }

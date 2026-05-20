@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { Heart, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../lib/utils";
 import { useShopStore } from "../../store/useShopStore";
@@ -6,63 +6,60 @@ import { useShopStore } from "../../store/useShopStore";
 export function ProductCard({ product, onToast }) {
   const toggleFavorite = useShopStore((state) => state.toggleFavorite);
   const isFavorite = useShopStore((state) => state.isFavorite(product.id));
-
-  // Simular swatches basados en el id para que parezca Ganga Home
-  const hasOptions = product.id % 2 === 0;
+  const addToCart = useShopStore((state) => state.addToCart);
 
   return (
-    <article className="group flex flex-col w-full relative mb-6">
-      <div className="relative aspect-[4/5] bg-[#F7F7F7] overflow-hidden">
-        <Link to={`/producto/${product.id}`}>
+    <article className="group flex h-full flex-col overflow-hidden rounded-[1.1rem] border border-[#F2E4E8] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-editorial sm:rounded-[1.45rem]">
+      <div className="relative m-1.5 overflow-hidden rounded-[0.9rem] bg-[#F7DCE5] sm:m-2 sm:rounded-[1.15rem]">
+        <Link to={`/producto/${product.id}`} className="block aspect-[4/5]">
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
             loading="lazy"
           />
         </Link>
+        {product.oldPrice ? (
+          <span className="absolute left-2 top-2 rounded-full bg-white/90 px-2.5 py-1 text-[9px] font-black uppercase tracking-wide text-[#6B4355] shadow-sm sm:left-3 sm:top-3 sm:px-3 sm:text-[10px]">
+            {product.badge || "Oferta"}
+          </span>
+        ) : null}
         <button
           onClick={() => toggleFavorite(product)}
-          className="absolute bottom-3 right-3 bg-white w-8 h-8 rounded-md shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
+          className="absolute right-2 top-2 grid h-8 w-8 place-items-center rounded-full bg-white/90 text-[#A78D95] shadow-sm transition hover:bg-white hover:text-[#C97A96] sm:right-3 sm:top-3 sm:h-9 sm:w-9"
           aria-label="Guardar favorito"
         >
-          <Heart className={`h-[18px] w-[18px] transition-colors ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-600 stroke-[1.5]"}`} />
+          <Heart className={`h-[18px] w-[18px] transition-colors ${isFavorite ? "fill-[#C97A96] text-[#C97A96]" : "stroke-[1.5]"}`} />
         </button>
       </div>
 
-      <div className="mt-4 flex flex-col text-left px-1">
-        {hasOptions ? (
-          <>
-            <span className="text-[9px] uppercase tracking-widest text-gray-400 mb-1.5 font-medium">Otras opciones:</span>
-            <div className="flex gap-2 mb-3">
-              <div className="w-5 h-5 rounded-full bg-[#E5E0D8] border-2 border-white outline outline-1 outline-gray-300 cursor-pointer"></div>
-              <div className="w-5 h-5 rounded-full bg-[#D1C6BB] border-2 border-white cursor-pointer hover:outline hover:outline-1 hover:outline-gray-300"></div>
-              <div className="w-5 h-5 rounded-full bg-[#A89F91] border-2 border-white cursor-pointer hover:outline hover:outline-1 hover:outline-gray-300"></div>
-            </div>
-          </>
-        ) : (
-          <div className="h-[42px]"></div> /* Placeholder to keep alignment */
-        )}
-
-        <Link to={`/producto/${product.id}`} className="text-[13px] text-gray-500 hover:text-black font-light leading-relaxed line-clamp-2 min-h-[38px]">
+      <div className="flex flex-1 flex-col px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
+        <span className="text-[9px] font-black uppercase tracking-[0.14em] text-[#C97A96] sm:text-[10px] sm:tracking-[0.16em]">{product.category}</span>
+        <Link to={`/producto/${product.id}`} className="mt-1.5 min-h-[40px] text-[13px] font-semibold leading-5 text-[#4D3A42] transition hover:text-[#C97A96] sm:mt-2 sm:min-h-[42px] sm:text-sm">
           {product.name}
         </Link>
+        <p className="mt-1.5 line-clamp-2 min-h-[38px] text-[11px] leading-5 text-[#A78D95] sm:mt-2 sm:min-h-[40px] sm:text-xs">{product.description}</p>
 
-        <div className="mt-2 min-h-[16px]">
-          {product.oldPrice ? (
-            <span className="text-xs text-gray-400 line-through tracking-wide">
-              {formatPrice(product.oldPrice)}
+        <div className="mt-3 flex items-end justify-between gap-2 sm:mt-4 sm:gap-3">
+          <div>
+            {product.oldPrice ? (
+              <span className="block text-xs text-[#A78D95]/70 line-through">{formatPrice(product.oldPrice)}</span>
+            ) : null}
+            <span className="text-[15px] font-black tracking-tight text-[#6B4355] sm:text-lg">{formatPrice(product.price)}</span>
+            <span className="mt-1 block text-[11px] font-semibold text-[#A78D95]">
+              {product.stock > 0 ? `${product.stock} disponibles` : "Sin stock"}
             </span>
-          ) : null}
-        </div>
-
-        <div className="mt-0.5 flex flex-col">
-          <span className="text-[15px] font-bold text-red-600 tracking-tight">
-            {formatPrice(product.price)} <span className="font-semibold text-[13px]">con Transferencia</span>
-          </span>
-          <span className="text-[10px] text-gray-400 mt-1 font-medium tracking-wide">
-            6 cuotas sin interés de {formatPrice(product.price / 6)}
-          </span>
+          </div>
+          <button
+            onClick={() => {
+              addToCart(product);
+              onToast?.("Producto agregado al carrito");
+            }}
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F7DCE5] text-[#6B4355] shadow-sm ring-1 ring-[#F2E4E8] transition hover:bg-[#6B4355] hover:text-[#FFF9F6] sm:h-11 sm:w-11"
+            aria-label="Agregar al carrito"
+          >
+            <ShoppingBag className="h-[18px] w-[18px] stroke-[1.8]" />
+          </button>
         </div>
       </div>
     </article>

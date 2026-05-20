@@ -51,7 +51,7 @@ export function ProductDetail() {
             <Button variant="secondary" onClick={() => toggleFavorite(product)}>
               <Heart className={isFavorite ? "h-4 w-4 fill-coral text-coral" : "h-4 w-4"} /> Favorito
             </Button>
-            <a href={buildWhatsAppUrl(`Hola, quiero consultar por ${product.name} de Xeneize Regaleria`)}>
+            <a href={buildWhatsAppUrl(`Hola, quiero consultar por ${product.name} de Xeneize Regalería`)}>
               <Button variant="blush" className="w-full"><MessageCircle className="h-4 w-4" /> WhatsApp</Button>
             </a>
           </div>
@@ -60,7 +60,7 @@ export function ProductDetail() {
 
       <div className="mt-12">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="section-title">Tambien te puede gustar</h2>
+          <h2 className="section-title">También te puede gustar</h2>
           <Link to="/productos" className="text-sm font-black text-coral">Ver mas</Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

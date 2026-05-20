@@ -25,8 +25,8 @@ export function Login() {
         <div className="mb-7 flex justify-center">
           <Logo />
         </div>
-        <h1 className="text-center text-2xl font-black tracking-tight">Ingresar o crear cuenta</h1>
-        <p className="mt-2 text-center text-sm text-warm">Demo sin backend, guardada en localStorage.</p>
+        <h1 className="text-center text-2xl font-black tracking-tight">Cuenta opcional</h1>
+        <p className="mt-2 text-center text-sm text-warm">Futura mejora guardada localmente. Podes comprar sin registrarte desde el carrito.</p>
         <form onSubmit={submit} className="mt-8 space-y-4">
           <label className="block">
             <span className="text-sm font-semibold">Nombre</span>
@@ -43,7 +43,7 @@ export function Login() {
             </div>
           </label>
           <label className="block">
-            <span className="text-sm font-semibold">Contrasena</span>
+            <span className="text-sm font-semibold">Contraseña</span>
             <input type="password" value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })} className="mt-2 h-12 w-full rounded-full border border-coral/15 px-4 text-sm outline-none focus:border-coral focus:ring-2 focus:ring-coral/20" placeholder="********" />
           </label>
           <Button className="w-full">Continuar</Button>

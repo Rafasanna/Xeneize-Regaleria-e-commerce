@@ -7,14 +7,10 @@ import { useShopStore } from "../store/useShopStore";
 export function Account() {
   const user = useShopStore((state) => state.user);
   const favorites = useShopStore((state) => state.favorites);
+  const orders = useShopStore((state) => state.orders);
   const logout = useShopStore((state) => state.logout);
 
   if (!user) return <Navigate to="/login" replace />;
-
-  const demoOrders = [
-    { id: "XE-1024", status: "Preparando", total: 48700 },
-    { id: "XE-1019", status: "Entregado", total: 23600 }
-  ];
 
   return (
     <section className="container-page py-10">
@@ -32,9 +28,9 @@ export function Account() {
         <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-coral/10">
           <h2 className="flex items-center gap-2 text-lg font-black"><User className="h-5 w-5 text-coral" /> Datos</h2>
           <div className="mt-4 space-y-2 text-sm text-warm">
-            <p>Direccion demo: {user.address}</p>
-            <p>Ciudad: Santa Elena, Entre Rios</p>
-            <p>Preferencia: Retiro en local</p>
+            <p>Email: {user.email}</p>
+            <p>Cuenta opcional guardada localmente.</p>
+            <p>La compra principal funciona sin registro.</p>
           </div>
         </div>
         <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-coral/10">
@@ -43,15 +39,19 @@ export function Account() {
           <Link to="/favoritos" className="mt-4 inline-block text-sm font-black text-coral">Ver favoritos</Link>
         </div>
         <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-coral/10">
-          <h2 className="flex items-center gap-2 text-lg font-black"><Package className="h-5 w-5 text-coral" /> Pedidos demo</h2>
-          <div className="mt-4 space-y-3">
-            {demoOrders.map((order) => (
+          <h2 className="flex items-center gap-2 text-lg font-black"><Package className="h-5 w-5 text-coral" /> Pedidos</h2>
+          {orders.length ? (
+            <div className="mt-4 space-y-3">
+              {orders.map((order) => (
               <div key={order.id} className="flex items-center justify-between rounded-md bg-steel p-3 text-sm">
                 <span>{order.id} - {order.status}</span>
                 <strong>{formatPrice(order.total)}</strong>
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-4 text-sm text-warm">Todavía no hay pedidos registrados en este dispositivo.</p>
+          )}
         </div>
       </div>
     </section>

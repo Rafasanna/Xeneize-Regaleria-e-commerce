@@ -1,4 +1,4 @@
-import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { MessageCircle, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/Button";
@@ -6,15 +6,15 @@ import { buildWhatsAppUrl, formatPrice } from "../lib/utils";
 import { useShopStore } from "../store/useShopStore";
 
 export function Cart() {
-  const [delivery, setDelivery] = useState("Envio a domicilio");
+  const [delivery, setDelivery] = useState("Envío a domicilio");
   const cart = useShopStore((state) => state.cart);
   const updateQuantity = useShopStore((state) => state.updateQuantity);
   const removeFromCart = useShopStore((state) => state.removeFromCart);
   const subtotal = useMemo(() => cart.reduce((sum, item) => sum + item.price * item.quantity, 0), [cart]);
-  const shipping = delivery === "Envio a domicilio" && subtotal > 0 ? 3500 : 0;
+  const shipping = 0;
   const total = subtotal + shipping;
   const message = [
-    "Hola, quiero consultar por este pedido de Xeneize Regaleria:",
+    "Hola, quiero consultar por este pedido de Xeneize Regalería:",
     ...cart.map((item) => `- ${item.name} x${item.quantity}: ${formatPrice(item.price * item.quantity)}`),
     `Subtotal: ${formatPrice(subtotal)}`,
     `Entrega: ${delivery}`,
@@ -62,8 +62,8 @@ export function Cart() {
           <h2 className="text-xl font-black">Resumen</h2>
           <div className="mt-5 grid gap-3 text-sm">
             <label className="flex items-center gap-3 rounded-lg border border-coral/15 p-3">
-              <input type="radio" checked={delivery === "Envio a domicilio"} onChange={() => setDelivery("Envio a domicilio")} className="accent-coral" />
-              Envio a domicilio
+              <input type="radio" checked={delivery === "Envío a domicilio"} onChange={() => setDelivery("Envío a domicilio")} className="accent-coral" />
+              Envío a domicilio
             </label>
             <label className="flex items-center gap-3 rounded-lg border border-coral/15 p-3">
               <input type="radio" checked={delivery === "Retiro en local"} onChange={() => setDelivery("Retiro en local")} className="accent-coral" />
@@ -72,11 +72,16 @@ export function Cart() {
           </div>
           <div className="mt-6 space-y-3 border-t border-coral/10 pt-5 text-sm">
             <div className="flex justify-between"><span>Subtotal</span><strong>{formatPrice(subtotal)}</strong></div>
-            <div className="flex justify-between"><span>Envio demo</span><strong>{formatPrice(shipping)}</strong></div>
+            <div className="flex justify-between"><span>Envío</span><strong>{delivery === "Envío a domicilio" ? "A confirmar" : formatPrice(0)}</strong></div>
             <div className="flex justify-between text-lg"><span>Total</span><strong>{formatPrice(total)}</strong></div>
           </div>
-          <a href={buildWhatsAppUrl(message)} className="mt-6 block">
-            <Button className="w-full font-black">Finalizar pedido por WhatsApp</Button>
+          <Link to="/checkout" className="mt-6 block">
+            <Button className="w-full font-black">Avanzar al checkout</Button>
+          </Link>
+          <a href={buildWhatsAppUrl(message)} className="mt-3 block">
+            <Button variant="secondary" className="w-full font-black">
+              <MessageCircle className="h-4 w-4" /> Consultar por WhatsApp
+            </Button>
           </a>
         </aside>
       </div>
