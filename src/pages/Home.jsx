@@ -69,15 +69,15 @@ export function Home() {
               </div>
             </div>
 
-            <div className="relative min-h-[220px] overflow-hidden rounded-[1.35rem] bg-white shadow-soft ring-1 ring-white sm:min-h-[320px] sm:rounded-[1.75rem] lg:min-h-[430px]">
+            <div className="relative min-h-[250px] overflow-hidden rounded-[1.35rem] bg-white shadow-soft ring-1 ring-white sm:min-h-[320px] sm:rounded-[1.75rem] lg:min-h-[430px]">
               <div className="absolute inset-x-4 top-4 flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.16em] text-[#A78D95] sm:inset-x-6 sm:top-6 sm:text-xs">
                 <span>Detalles elegidos</span>
                 <span>Santa Elena</span>
               </div>
               <img
-                src="/xeneizeregaleria-hero.png"
+                src="/xeneizeregaleria-hero.jpeg"
                 alt="Xeneize Regalería"
-                className="absolute left-1/2 top-1/2 h-[145%] w-[145%] -translate-x-1/2 -translate-y-[47%] object-contain sm:h-[150%] sm:w-[150%] sm:-translate-y-[47%] lg:h-[154%] lg:w-[154%] lg:-translate-y-[47%]"
+                className="absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-[45%] object-contain sm:h-[145%] sm:w-[145%] sm:-translate-y-[47%] lg:h-[154%] lg:w-[154%] lg:-translate-y-[47%]"
               />
             </div>
           </div>
