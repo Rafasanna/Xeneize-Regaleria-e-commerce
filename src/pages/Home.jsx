@@ -77,7 +77,7 @@ export function Home() {
               <img
                 src="/xeneizeregaleria-hero.jpeg"
                 alt="Xeneize Regalería"
-                className="absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-[45%] object-contain sm:h-[145%] sm:w-[145%] sm:-translate-y-[47%] lg:h-[154%] lg:w-[154%] lg:-translate-y-[47%]"
+                className="absolute left-1/2 top-1/2 h-[140%] w-[140%] -translate-x-1/2 -translate-y-[46%] object-contain sm:h-[145%] sm:w-[145%] sm:-translate-y-[47%] lg:h-[154%] lg:w-[154%] lg:-translate-y-[47%]"
               />
             </div>
           </div>
