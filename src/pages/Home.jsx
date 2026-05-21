@@ -70,7 +70,7 @@ export function Home() {
           <div className="relative grid gap-5 overflow-hidden rounded-[1.5rem] border border-white/80 bg-white/72 p-4 shadow-editorial sm:gap-6 sm:rounded-[2.25rem] sm:p-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:p-10">
             <div className="relative z-10 max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#FC2DAF] shadow-sm ring-1 ring-[#FE72A9]/18 sm:px-4 sm:text-xs">
-                <Sparkles className="h-4 w-4" /> 17 años en Santa Elena
+                <Sparkles className="h-4 w-4" /> 17 años en el rubro
               </span>
               <h1 className="brand-title mt-4 max-w-2xl text-[2.65rem] sm:mt-5 sm:text-6xl lg:text-7xl">
                 Regalos para cada momento, elegidos con cariño
