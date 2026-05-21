@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Footer } from "./components/layout/Footer";
 import { Header } from "./components/layout/Header";
 import { ScrollToTop } from "./components/layout/ScrollToTop";
@@ -13,13 +13,16 @@ import { Account } from "./pages/Account";
 import { Checkout } from "./pages/Checkout";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
+import { Help } from "./pages/Help";
 
 export default function App() {
+  const location = useLocation();
+
   return (
     <div className="flex min-h-screen flex-col bg-cream">
       <ScrollToTop />
       <Header />
-      <main className="flex-1">
+      <main key={location.pathname} className="flex-1 animate-page-enter">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/productos" element={<Products />} />
@@ -32,6 +35,7 @@ export default function App() {
           <Route path="/mi-cuenta" element={<Account />} />
           <Route path="/sobre-nosotros" element={<About />} />
           <Route path="/contacto" element={<Contact />} />
+          <Route path="/ayuda" element={<Help />} />
           <Route path="/producto/:id" element={<ProductDetail />} />
         </Routes>
       </main>

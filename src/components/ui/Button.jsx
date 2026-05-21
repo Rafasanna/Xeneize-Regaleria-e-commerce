@@ -1,10 +1,10 @@
 import { cn } from "../../lib/utils";
 
 const variants = {
-  primary: "bg-[#6B4355] text-[#FFF9F6] shadow-[0_14px_30px_rgba(107,67,85,0.20)] hover:bg-[#C97A96]",
-  secondary: "bg-[#FFF9F6]/80 text-[#4D3A42] ring-1 ring-[#F2E4E8] hover:bg-white hover:ring-[#C97A96]/35",
-  blush: "bg-[#F7DCE5] text-[#6B4355] ring-1 ring-[#F2E4E8] hover:bg-[#F8D4C4]",
-  ghost: "bg-transparent text-[#4D3A42] hover:bg-[#FCECF2]"
+  primary: "bg-[#FC2DAF] text-white shadow-[0_16px_34px_rgba(252,45,175,0.24)] hover:bg-[#FE72A9]",
+  secondary: "bg-white text-[#18121D] ring-1 ring-[#98C3D6]/50 hover:bg-[#EAF6FB] hover:ring-[#28A4DC]/45",
+  blush: "bg-[#FE72A9]/16 text-[#18121D] ring-1 ring-[#FE72A9]/25 hover:bg-[#FE72A9]/26",
+  ghost: "bg-transparent text-[#18121D] hover:bg-[#FDE7F1]"
 };
 
 export function Button({ className, variant = "primary", children, ...props }) {

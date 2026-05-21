@@ -1,8 +1,8 @@
-import { MessageCircle, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/Button";
-import { buildWhatsAppUrl, formatPrice } from "../lib/utils";
+import { formatPrice } from "../lib/utils";
 import { useShopStore } from "../store/useShopStore";
 
 export function Cart() {
@@ -13,21 +13,13 @@ export function Cart() {
   const subtotal = useMemo(() => cart.reduce((sum, item) => sum + item.price * item.quantity, 0), [cart]);
   const shipping = 0;
   const total = subtotal + shipping;
-  const message = [
-    "Hola, quiero consultar por este pedido de Xeneize Regalería:",
-    ...cart.map((item) => `- ${item.name} x${item.quantity}: ${formatPrice(item.price * item.quantity)}`),
-    `Subtotal: ${formatPrice(subtotal)}`,
-    `Entrega: ${delivery}`,
-    `Total estimado: ${formatPrice(total)}`
-  ].join("\n");
-
   if (!cart.length) {
     return (
       <section className="container-page py-12">
         <div className="rounded-lg bg-white p-10 text-center shadow-sm ring-1 ring-coral/10">
           <ShoppingBag className="mx-auto h-11 w-11 text-coral" />
           <h1 className="mt-4 text-2xl font-black">Tu carrito esta vacio</h1>
-          <p className="mt-2 text-sm text-warm">Agrega productos para generar tu pedido por WhatsApp.</p>
+          <p className="mt-2 text-sm text-warm">Agrega productos para avanzar con tu compra online.</p>
           <Link to="/productos" className="mt-6 inline-block"><Button>Ver productos</Button></Link>
         </div>
       </section>
@@ -78,11 +70,6 @@ export function Cart() {
           <Link to="/checkout" className="mt-6 block">
             <Button className="w-full font-black">Avanzar al checkout</Button>
           </Link>
-          <a href={buildWhatsAppUrl(message)} className="mt-3 block">
-            <Button variant="secondary" className="w-full font-black">
-              <MessageCircle className="h-4 w-4" /> Consultar por WhatsApp
-            </Button>
-          </a>
         </aside>
       </div>
     </section>

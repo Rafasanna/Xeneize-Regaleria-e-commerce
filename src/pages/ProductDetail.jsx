@@ -1,12 +1,15 @@
-import { Heart, MessageCircle, ShoppingBag } from "lucide-react";
+import { Heart, ShoppingBag } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "../components/ui/Button";
+import { InstagramLogo } from "../components/ui/InstagramLogo";
 import { ProductCard } from "../components/ui/ProductCard";
 import { Toast } from "../components/ui/Toast";
 import { products } from "../data/products";
-import { buildWhatsAppUrl, formatPrice } from "../lib/utils";
+import { formatPrice } from "../lib/utils";
 import { useShopStore } from "../store/useShopStore";
+
+const instagramUrl = "https://www.instagram.com/xeneizeregaleria/";
 
 export function ProductDetail() {
   const { id } = useParams();
@@ -50,8 +53,8 @@ export function ProductDetail() {
             <Button variant="secondary" onClick={() => toggleFavorite(product)}>
               <Heart className={isFavorite ? "h-4 w-4 fill-coral text-coral" : "h-4 w-4"} /> Favorito
             </Button>
-            <a href={buildWhatsAppUrl(`Hola, quiero consultar por ${product.name} de Xeneize Regalería`)}>
-              <Button variant="blush" className="w-full"><MessageCircle className="h-4 w-4" /> WhatsApp</Button>
+            <a href={instagramUrl}>
+              <Button variant="blush" className="w-full"><InstagramLogo className="h-4 w-4" /> Instagram</Button>
             </a>
           </div>
         </div>

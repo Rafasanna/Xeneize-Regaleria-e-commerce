@@ -12,9 +12,3 @@ export function formatPrice(value) {
     maximumFractionDigits: 0
   }).format(value);
 }
-
-export const whatsappNumber = "5493437000000";
-
-export function buildWhatsAppUrl(message) {
-  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-}
