@@ -9,8 +9,8 @@ export function ProductCard({ product, onToast }) {
   const addToCart = useShopStore((state) => state.addToCart);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-[#FE72A9]/16 bg-white shadow-[0_12px_32px_rgba(24,18,29,0.06)] transition duration-300 hover:-translate-y-1 hover:border-[#FE72A9]/35 hover:shadow-editorial sm:rounded-[1.7rem]">
-      <div className="relative m-1.5 overflow-hidden rounded-[1.05rem] bg-[#FDE7F1] sm:m-2 sm:rounded-[1.35rem]">
+    <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-[1.15rem] border border-[#FE72A9]/16 bg-white shadow-[0_12px_32px_rgba(24,18,29,0.06)] transition duration-300 hover:-translate-y-1 hover:border-[#FE72A9]/35 hover:shadow-editorial sm:rounded-[1.7rem]">
+      <div className="relative m-1.5 overflow-hidden rounded-[0.95rem] bg-[#FDE7F1] sm:m-2 sm:rounded-[1.35rem]">
         <Link to={`/producto/${product.id}`} className="block aspect-[4/5]">
           <img
             src={product.image}
@@ -33,7 +33,7 @@ export function ProductCard({ product, onToast }) {
         </button>
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
+      <div className="flex min-w-0 flex-1 flex-col px-2.5 pb-3 pt-2 sm:px-4 sm:pb-4">
         <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#28A4DC] sm:text-[10px] sm:tracking-[0.16em]">{product.category}</span>
         <Link to={`/producto/${product.id}`} className="mt-1.5 min-h-[40px] text-[13px] font-bold leading-5 text-[#18121D] transition hover:text-[#FC2DAF] sm:mt-2 sm:min-h-[42px] sm:text-sm">
           {product.name}
@@ -45,7 +45,7 @@ export function ProductCard({ product, onToast }) {
             {product.oldPrice ? (
               <span className="block text-xs text-[#7B6D82]/70 line-through">{formatPrice(product.oldPrice)}</span>
             ) : null}
-            <span className="block truncate text-[15px] font-bold tracking-tight text-[#18121D] sm:text-lg">{formatPrice(product.price)}</span>
+            <span className="block truncate text-[14px] font-bold tracking-tight text-[#18121D] sm:text-lg">{formatPrice(product.price)}</span>
             <span className="mt-1 block text-[11px] font-semibold text-[#7B6D82]">
               {product.stock > 0 ? `${product.stock} disponibles` : "Sin stock"}
             </span>

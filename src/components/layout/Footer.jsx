@@ -23,7 +23,7 @@ const instagramUrl = "https://www.instagram.com/xeneizeregaleria/";
 export function Footer() {
   return (
     <footer className="mt-16 bg-[#18121D] text-white">
-      <div className="container-page grid gap-10 py-14 md:grid-cols-[1.35fr_1fr_1fr_1fr]">
+      <div className="container-page grid gap-8 py-10 sm:py-14 md:grid-cols-[1.35fr_1fr_1fr_1fr] md:gap-10">
         <div className="space-y-4">
           <Logo compact />
           <p className="max-w-sm text-sm leading-6 text-white/78">

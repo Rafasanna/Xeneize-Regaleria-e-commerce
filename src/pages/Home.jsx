@@ -67,12 +67,12 @@ export function Home() {
     <div className="min-h-screen bg-[#FFF8FC] text-[#18121D]">
       <section className="overflow-hidden bg-[linear-gradient(135deg,#FDE7F1_0%,#FFFFFF_46%,#EAF6FB_100%)]">
         <div className="container-page py-5 sm:py-8 lg:py-10">
-          <div className="relative grid gap-6 overflow-hidden rounded-[1.75rem] border border-white/80 bg-white/72 p-4 shadow-editorial sm:rounded-[2.25rem] sm:p-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:p-10">
+          <div className="relative grid gap-5 overflow-hidden rounded-[1.5rem] border border-white/80 bg-white/72 p-4 shadow-editorial sm:gap-6 sm:rounded-[2.25rem] sm:p-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:p-10">
             <div className="relative z-10 max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-[#FC2DAF] shadow-sm ring-1 ring-[#FE72A9]/18 sm:px-4 sm:text-xs">
                 <Sparkles className="h-4 w-4" /> 17 años en Santa Elena
               </span>
-              <h1 className="brand-title mt-4 max-w-2xl text-[3rem] sm:mt-5 sm:text-6xl lg:text-7xl">
+              <h1 className="brand-title mt-4 max-w-2xl text-[2.65rem] sm:mt-5 sm:text-6xl lg:text-7xl">
                 Regalos para cada momento, elegidos con cariño
               </h1>
               <p className="mt-4 max-w-xl text-[15px] font-medium leading-7 text-[#7B6D82] sm:mt-5 sm:text-lg">
@@ -96,12 +96,12 @@ export function Home() {
               </div>
             </div>
 
-            <div className="relative min-h-[280px] overflow-hidden rounded-[1.5rem] bg-[linear-gradient(145deg,#FE72A9_0%,#FFFFFF_48%,#98C3D6_100%)] p-3 shadow-soft ring-1 ring-white sm:min-h-[380px] sm:rounded-[1.9rem] lg:min-h-[500px]">
+            <div className="relative min-h-[250px] overflow-hidden rounded-[1.35rem] bg-[linear-gradient(145deg,#FE72A9_0%,#FFFFFF_48%,#98C3D6_100%)] p-2.5 shadow-soft ring-1 ring-white sm:min-h-[380px] sm:rounded-[1.9rem] sm:p-3 lg:min-h-[500px]">
               <div className="absolute inset-x-4 top-4 z-10 flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.16em] text-[#18121D] sm:inset-x-6 sm:top-6 sm:text-xs">
                 <span>Detalles elegidos</span>
                 <span>Santa Elena</span>
               </div>
-              <div className="relative h-full min-h-[256px] overflow-hidden rounded-[1.25rem] bg-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9)] sm:min-h-[356px] sm:rounded-[1.65rem] lg:min-h-[476px]">
+              <div className="relative h-full min-h-[228px] overflow-hidden rounded-[1.1rem] bg-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9)] sm:min-h-[356px] sm:rounded-[1.65rem] lg:min-h-[476px]">
                 {heroSlides.map((slide, index) => (
                   <img
                     key={slide.src}
@@ -167,7 +167,7 @@ export function Home() {
           </div>
           <Link to="/productos" className="hidden rounded-full border border-[#FE72A9]/18 bg-white px-4 py-2 text-sm font-bold text-[#18121D] transition hover:bg-[#FDE7F1] hover:text-[#FC2DAF] sm:inline-flex">Ver todos</Link>
         </div>
-        <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4">
           {featured.map((product) => (
             <ProductCard key={product.id} product={product} onToast={showToast} />
           ))}
@@ -209,7 +209,7 @@ export function Home() {
               <Tag className="h-4 w-4" /> Ver ofertas
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4">
             {offers.map((product) => (
               <ProductCard key={product.id} product={product} onToast={showToast} />
             ))}
@@ -218,7 +218,7 @@ export function Home() {
       </section>
 
       <section className="container-page py-8">
-        <div className="grid gap-6 rounded-[2rem] bg-white p-6 shadow-soft ring-1 ring-[#FE72A9]/16 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:p-8">
+        <div className="grid gap-5 rounded-[1.5rem] bg-white p-4 shadow-soft ring-1 ring-[#FE72A9]/16 sm:rounded-[2rem] sm:p-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:p-8">
           <div className="relative overflow-hidden rounded-[1.5rem] bg-[#FDE7F1]">
             <img src="/fwdlogoxeneizeregaleria/xeneize-pink.png" alt="Logo Xeneize Regalería" className="aspect-[4/3] h-full w-full object-contain p-8" loading="lazy" />
           </div>

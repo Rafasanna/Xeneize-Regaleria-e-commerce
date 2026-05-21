@@ -85,7 +85,7 @@ export function Products() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-5 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-5 lg:grid-cols-4">
         {filtered.map((product) => <ProductCard key={product.id} product={product} onToast={showToast} />)}
       </div>
       {!filtered.length ? <div className="rounded-lg bg-white p-10 text-center text-warm ring-1 ring-coral/10">No encontramos productos con esos filtros.</div> : null}

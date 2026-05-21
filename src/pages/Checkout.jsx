@@ -98,23 +98,23 @@ export function Checkout() {
   const summaryDelivery = completedOrder?.delivery?.method ?? form.delivery;
 
   return (
-    <section className="container-page py-10">
+    <section className="container-page py-6 sm:py-10">
       <div className="mb-8">
         <Link to="/carrito" className="text-sm font-black text-coral">Volver al carrito</Link>
         <h1 className="section-title mt-3">Checkout</h1>
       </div>
 
-      <div className="mb-8 grid gap-2 sm:grid-cols-4">
+      <div className="mb-6 grid grid-cols-2 gap-2 sm:mb-8 sm:grid-cols-4">
         {steps.map(({ key, label, icon: Icon }, index) => (
-          <div key={key} className={`flex items-center gap-2 rounded-full px-4 py-3 text-sm font-black ring-1 ${index <= step ? "bg-coral text-white ring-coral" : "bg-white text-warm ring-coral/10"}`}>
+          <div key={key} className={`flex min-w-0 items-center gap-2 rounded-full px-3 py-3 text-xs font-black ring-1 sm:px-4 sm:text-sm ${index <= step ? "bg-coral text-white ring-coral" : "bg-white text-warm ring-coral/10"}`}>
             <Icon className="h-4 w-4" />
-            {label}
+            <span className="truncate">{label}</span>
           </div>
         ))}
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
-        <div className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-coral/10">
+        <div className="rounded-[1.25rem] bg-white p-4 shadow-sm ring-1 ring-coral/10 sm:p-6">
           {step === 0 ? <CustomerStep form={form} updateForm={updateForm} /> : null}
           {step === 1 ? <DeliveryStep form={form} updateForm={updateForm} /> : null}
           {step === 2 ? <PaymentStep form={form} updateForm={updateForm} /> : null}
@@ -122,7 +122,7 @@ export function Checkout() {
           {error ? <p className="mt-5 rounded-lg bg-blush-50 p-3 text-sm font-semibold text-warm">{error}</p> : null}
 
           {step < 3 ? (
-            <div className="mt-8 flex justify-between gap-3 border-t border-coral/10 pt-5">
+            <div className="mt-8 flex flex-col-reverse justify-between gap-3 border-t border-coral/10 pt-5 sm:flex-row">
               <Button variant="secondary" onClick={back} disabled={step === 0}>Atrás</Button>
               {step === 2 ? (
                 <Button onClick={confirmOrder}>Confirmar compra</Button>
@@ -142,7 +142,7 @@ export function Checkout() {
 function CustomerStep({ form, updateForm }) {
   return (
     <div>
-      <h2 className="text-2xl font-black">Datos de contacto</h2>
+      <h2 className="text-xl font-black sm:text-2xl">Datos de contacto</h2>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <Field label="Nombre y apellido" value={form.name} onChange={(value) => updateForm("name", value)} />
         <Field label="Teléfono" value={form.phone} onChange={(value) => updateForm("phone", value)} />
@@ -155,7 +155,7 @@ function CustomerStep({ form, updateForm }) {
 function DeliveryStep({ form, updateForm }) {
   return (
     <div>
-      <h2 className="text-2xl font-black">Entrega</h2>
+      <h2 className="text-xl font-black sm:text-2xl">Entrega</h2>
       <div className="mt-6 grid gap-3">
         {deliveryMethods.map((option) => (
           <label key={option} className="flex cursor-pointer items-center gap-3 rounded-lg border border-coral/15 p-4 transition hover:bg-blush-50">
@@ -176,7 +176,7 @@ function DeliveryStep({ form, updateForm }) {
 function PaymentStep({ form, updateForm }) {
   return (
     <div>
-      <h2 className="text-2xl font-black">Método de pago</h2>
+      <h2 className="text-xl font-black sm:text-2xl">Método de pago</h2>
       <div className="mt-6 grid gap-3">
         {paymentMethods.map((option) => (
           <label key={option} className="flex cursor-pointer items-center gap-3 rounded-lg border border-coral/15 p-4 transition hover:bg-blush-50">
@@ -212,7 +212,7 @@ function Field({ label, value, onChange, className = "" }) {
 
 function OrderSummary({ cart, subtotal, shipping, total, delivery }) {
   return (
-    <aside className="h-fit rounded-lg bg-white p-5 shadow-soft ring-1 ring-coral/10">
+    <aside className="h-fit rounded-[1.25rem] bg-white p-4 shadow-soft ring-1 ring-coral/10 sm:p-5">
       <h2 className="text-xl font-black">Resumen</h2>
       <div className="mt-5 grid gap-4">
         {cart.map((item) => (
@@ -222,7 +222,7 @@ function OrderSummary({ cart, subtotal, shipping, total, delivery }) {
               <p className="truncate text-sm font-black">{item.name}</p>
               <p className="text-xs font-semibold text-warm">x{item.quantity}</p>
             </div>
-            <strong className="text-sm">{formatPrice(item.price * item.quantity)}</strong>
+            <strong className="shrink-0 text-sm">{formatPrice(item.price * item.quantity)}</strong>
           </div>
         ))}
       </div>

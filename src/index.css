@@ -39,7 +39,7 @@
   }
 
   .section-title {
-    @apply font-serif text-4xl font-bold leading-none text-ink sm:text-5xl;
+    @apply font-serif text-[2.35rem] font-bold leading-[0.98] text-ink sm:text-5xl;
   }
 
   .muted {

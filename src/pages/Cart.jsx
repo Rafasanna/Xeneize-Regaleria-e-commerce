@@ -27,19 +27,19 @@ export function Cart() {
   }
 
   return (
-    <section className="container-page py-10">
+    <section className="container-page py-6 sm:py-10">
       <h1 className="section-title">Carrito</h1>
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_380px]">
+      <div className="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-[1fr_380px] lg:gap-8">
         <div className="space-y-4">
           {cart.map((item) => (
-            <article key={item.id} className="grid gap-4 rounded-lg bg-white p-4 shadow-sm ring-1 ring-coral/10 sm:grid-cols-[110px_1fr_auto]">
-              <img src={item.image} alt={item.name} className="h-28 w-full rounded-md object-cover sm:w-28" />
-              <div>
+            <article key={item.id} className="grid grid-cols-[86px_1fr] gap-3 rounded-[1.25rem] bg-white p-3 shadow-sm ring-1 ring-coral/10 sm:grid-cols-[110px_1fr_auto] sm:gap-4 sm:p-4">
+              <img src={item.image} alt={item.name} className="h-24 w-full rounded-[0.9rem] object-cover sm:h-28 sm:w-28 sm:rounded-md" />
+              <div className="min-w-0">
                 <p className="text-xs font-black uppercase tracking-wide text-coral">{item.category}</p>
-                <h2 className="mt-1 font-black">{item.name}</h2>
+                <h2 className="mt-1 truncate font-black">{item.name}</h2>
                 <p className="mt-2 text-sm text-warm">{formatPrice(item.price)}</p>
               </div>
-              <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end">
+              <div className="col-span-2 flex items-center justify-between gap-4 sm:col-span-1 sm:flex-col sm:items-end">
                 <div className="flex items-center rounded-full border border-coral/15">
                   <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="grid h-10 w-10 place-items-center text-coral"><Minus className="h-4 w-4" /></button>
                   <span className="w-8 text-center text-sm font-semibold">{item.quantity}</span>
@@ -50,7 +50,7 @@ export function Cart() {
             </article>
           ))}
         </div>
-        <aside className="h-fit rounded-lg bg-white p-5 shadow-sm ring-1 ring-coral/10">
+        <aside className="h-fit rounded-[1.25rem] bg-white p-5 shadow-sm ring-1 ring-coral/10">
           <h2 className="text-xl font-black">Resumen</h2>
           <div className="mt-5 grid gap-3 text-sm">
             <label className="flex items-center gap-3 rounded-lg border border-coral/15 p-3">
