@@ -2,28 +2,13 @@
   "name": "xeneize-regaleria",
   "private": true,
   "version": "0.1.0",
-  "type": "module",
+  "packageManager": "pnpm@11.2.2",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
-  },
-  "dependencies": {
-    "@vitejs/plugin-react": "^4.4.1",
-    "vite": "^6.3.5",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-router-dom": "latest",
-    "zustand": "latest",
-    "lucide-react": "latest",
-    "framer-motion": "latest",
-    "clsx": "latest",
-    "tailwind-merge": "latest",
-    "class-variance-authority": "latest"
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.4.17",
-    "postcss": "latest",
-    "autoprefixer": "latest"
+    "dev": "corepack pnpm --parallel --filter @xeneize/web --filter @xeneize/admin --filter @xeneize/api dev",
+    "dev:web": "corepack pnpm --filter @xeneize/web dev",
+    "dev:admin": "corepack pnpm --filter @xeneize/admin dev",
+    "dev:api": "corepack pnpm --filter @xeneize/api dev",
+    "build": "corepack pnpm -r --if-present build",
+    "lint": "corepack pnpm -r --if-present lint"
   }
 }
